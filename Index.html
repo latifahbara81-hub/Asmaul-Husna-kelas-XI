@@ -1,0 +1,2033 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ayo Mengenal Asmaul Husna - Media Pembelajaran PAI SLB Fase F</title>
+  <!-- Tailwind CSS untuk tata letak responsif dan modern -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Google: Inter & Amiri untuk Kaligrafi Arab yang jelas -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome untuk ikon visual besar dan jelas -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f0f7ff;
+      color: #1e293b;
+      overflow-x: hidden;
+    }
+    .font-arab {
+      font-family: 'Amiri', serif;
+      line-height: 1.8;
+    }
+    /* Animasi lembut agar menarik namun tidak memecah fokus tunarungu */
+    @keyframes floatGentle {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+    .animate-float {
+      animation: floatGentle 4s ease-in-out infinite;
+    }
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.96); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    .page-transition {
+      animation: popIn 0.35s ease-out forwards;
+    }
+    /* Efek tombol 3D ramah sentuhan layar besar / HP */
+    .btn-3d {
+      transition: all 0.15s ease;
+      box-shadow: 0 5px 0 rgba(15, 23, 42, 0.2);
+    }
+    .btn-3d:active {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 rgba(15, 23, 42, 0.2);
+    }
+    /* Styling cetak hasil belajar */
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; }
+      .print-area { box-shadow: none !important; border: 2px solid #cbd5e1 !important; }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-blue-200">
+
+  <!-- HEADER & NAVIGASI ATAS (Selalu terlihat agar mudah diakses) -->
+  <header class="bg-white border-b-4 border-blue-600 sticky top-0 z-40 shadow-sm no-print">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <!-- Identitas Media -->
+      <div class="flex items-center gap-3">
+        <button onclick="goToPage(1)" class="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-2xl btn-3d flex items-center gap-2 font-bold text-base" title="Kembali ke Beranda">
+          <i class="fa-solid fa-house text-xl"></i>
+          <span class="hidden sm:inline">BERANDA</span>
+        </button>
+        <div>
+          <span class="inline-block bg-emerald-100 text-emerald-800 text-xs font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wide">PAI SLB FASE F • TUNARUNGU</span>
+          <h1 class="text-base sm:text-lg font-extrabold text-slate-800 leading-tight">Mengenal Asmaul Husna</h1>
+        </div>
+      </div>
+
+      <!-- Indikator Progres Visual -->
+      <div class="flex items-center gap-2 flex-1 max-w-md mx-2">
+        <div class="w-full bg-slate-200 h-4 rounded-full overflow-hidden border border-slate-300">
+          <div id="progressBar" class="bg-gradient-to-r from-blue-500 via-emerald-500 to-amber-400 h-full transition-all duration-500" style="width: 11%;"></div>
+        </div>
+        <span id="progressText" class="text-sm font-extrabold text-blue-700 whitespace-nowrap">1 / 9</span>
+      </div>
+
+      <!-- Menu Cepat Guru & Aksesibilitas -->
+      <div class="flex items-center gap-2">
+        <button onclick="openSignModal('umum')" class="bg-amber-400 hover:bg-amber-500 text-slate-900 px-3 py-2.5 rounded-xl font-bold text-sm btn-3d flex items-center gap-2" title="Buka Panduan Bahasa Isyarat">
+          <i class="fa-solid fa-hands text-lg"></i>
+          <span class="hidden md:inline">Bahasa Isyarat</span>
+        </button>
+        <button onclick="openTeacherModal()" class="bg-slate-800 hover:bg-slate-900 text-white px-3 py-2.5 rounded-xl font-bold text-sm btn-3d flex items-center gap-2" title="Menu Guru, Word, Google Docs & Kunci Jawaban">
+          <i class="fa-solid fa-chalkboard-user text-lg"></i>
+          <span class="hidden sm:inline">Menu Guru</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigasi Lompat Halaman (Ikon + Angka Besar) -->
+    <nav class="bg-blue-50 border-t border-blue-100 px-2 py-2 overflow-x-auto">
+      <div class="max-w-6xl mx-auto flex items-center justify-between sm:justify-center gap-1.5 min-w-max">
+        <button onclick="goToPage(1)" id="navBtn1" class="nav-pill px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 border-2">
+          <i class="fa-solid fa-house"></i> 1. Beranda
+        </button>
+        <button onclick="goToPage(2)" id="navBtn2" class="nav-pill px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 border-2">
+          <i class="fa-solid fa-bullseye"></i> 2. Tujuan
+        </button>
+        <button onclick="goToPage(3)" id="navBtn3" class="nav-pill px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 border-2">
+          <i class="fa-solid fa-book-open"></i> 3. Materi
+        </button>
+        <button onclick="goToPage(4)" id="navBtn4" class="nav-pill px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 border-2">
+          <i class="fa-solid fa-images"></i> 4. Cerita
+        </button>
+        <button onclick="goToPage(5)" id="navBtn5" class="nav-pill px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 border-2">
+          <i class="fa-solid fa-puzzle-piece"></i> 5. Cocokkan
+        </button>
+        <button onclick="goToPage(6)" id="navBtn6" class="nav-pill px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 border-2">
+          <i class="fa-solid fa-circle-question"></i> 6. Kuis (15)
+        </button>
+        <button onclick="goToPage(7)" id="navBtn7" class="nav-pill px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 border-2">
+          <i class="fa-solid fa-list-check"></i> 7. Tantangan
+        </button>
+        <button onclick="goToPage(8)" id="navBtn8" class="nav-pill px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 border-2">
+          <i class="fa-solid fa-face-smile"></i> 8. Refleksi
+        </button>
+        <button onclick="goToPage(9)" id="navBtn9" class="nav-pill px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 border-2">
+          <i class="fa-solid fa-award"></i> 9. Penutup
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- AREA KONTEN UTAMA -->
+  <main id="appContainer" class="flex-1 max-w-6xl w-full mx-auto px-4 py-6">
+    <!-- Konten halaman dirender secara dinamis melalui JavaScript -->
+  </main>
+
+  <!-- FOOTER NAVIGASI BAWAH (Tombol Kembali & Lanjut Besar) -->
+  <footer class="bg-white border-t-4 border-slate-200 py-3 px-4 sticky bottom-0 z-30 no-print">
+    <div class="max-w-6xl mx-auto flex items-center justify-between gap-4">
+      <button id="btnPrev" onclick="prevPage()" class="bg-slate-200 hover:bg-slate-300 disabled:opacity-40 text-slate-800 font-extrabold text-base sm:text-lg px-5 py-3 rounded-2xl btn-3d flex items-center gap-2">
+        <i class="fa-solid fa-arrow-left text-xl"></i>
+        <span>KEMBALI</span>
+      </button>
+
+      <div class="hidden md:flex items-center gap-2 text-sm font-semibold text-slate-600">
+        <i class="fa-solid fa-eye text-blue-600"></i>
+        <span>Media Visual Interaktif • Tanpa Audio • Ramah Tunarungu</span>
+      </div>
+
+      <button id="btnNext" onclick="nextPage()" class="bg-emerald-600 hover:bg-emerald-700 disabled:opacity-40 text-white font-extrabold text-base sm:text-lg px-6 py-3 rounded-2xl btn-3d flex items-center gap-2">
+        <span>LANJUT</span>
+        <i class="fa-solid fa-arrow-right text-xl"></i>
+      </button>
+    </div>
+  </footer>
+
+  <!-- MODAL VIDEO / PANDUAN BAHASA ISYARAT (BISINDO / SIBI) -->
+  <div id="signModal" class="fixed inset-0 bg-slate-900/75 hidden items-center justify-center p-4 z-50 backdrop-blur-sm">
+    <div class="bg-white rounded-3xl max-w-2xl w-full border-4 border-amber-400 shadow-2xl overflow-hidden page-transition">
+      <div class="bg-amber-400 px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <i class="fa-solid fa-hands-asl-interpreting text-2xl text-slate-900"></i>
+          <h3 id="signModalTitle" class="text-xl font-extrabold text-slate-900">Bahasa Isyarat (BISINDO / SIBI)</h3>
+        </div>
+        <button onclick="closeModal('signModal')" class="bg-white hover:bg-slate-100 text-slate-900 w-10 h-10 rounded-full font-extrabold text-xl flex items-center justify-center">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="p-6 space-y-4 max-h-[80vh] overflow-y-auto">
+        <!-- Area Video Bahasa Isyarat yang Dapat Diisi Guru -->
+        <div id="signVideoContainer" class="bg-slate-900 rounded-2xl aspect-video flex flex-col items-center justify-center text-white p-4 text-center relative overflow-hidden border-2 border-slate-700">
+          <!-- Tempat video / iframe akan dimuat di sini -->
+        </div>
+
+        <!-- Panduan Visual Gerakan & Ekspresi -->
+        <div class="bg-blue-50 border-2 border-blue-200 rounded-2xl p-4">
+          <h4 class="font-extrabold text-blue-900 flex items-center gap-2 mb-2">
+            <i class="fa-solid fa-eye"></i> Fokus Komunikasi Visual & Ekspresi:
+          </h4>
+          <p id="signVisualDesc" class="text-slate-800 text-base leading-relaxed font-medium"></p>
+        </div>
+
+        <!-- Panel Guru untuk Memasukkan Tautan Video Isyarat Sendiri -->
+        <div class="bg-slate-100 border-2 border-slate-200 rounded-2xl p-4">
+          <label class="block text-sm font-extrabold text-slate-700 mb-1">
+            <i class="fa-solid fa-video text-emerald-600"></i> Pengaturan Guru: Masukkan URL Video Bahasa Isyarat (MP4 / YouTube Embed)
+          </label>
+          <div class="flex flex-col sm:flex-row gap-2">
+            <input type="text" id="customSignVideoInput" placeholder="Contoh: https://www.youtube.com/embed/KODE_VIDEO atau video.mp4" class="flex-1 px-3 py-2 rounded-xl border-2 border-slate-300 text-sm focus:border-blue-500 outline-none" />
+            <button onclick="saveCustomSignVideo()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded-xl text-sm">
+              Simpan Video
+            </button>
+          </div>
+          <p class="text-xs text-slate-500 mt-1">*Video akan tersimpan otomatis di browser perangkat ini untuk submateri yang sedang dibuka.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL CONTOH PERILAKU DETAIL (HALAMAN 3) -->
+  <div id="exampleModal" class="fixed inset-0 bg-slate-900/75 hidden items-center justify-center p-4 z-50 backdrop-blur-sm">
+    <div class="bg-white rounded-3xl max-w-2xl w-full border-4 border-emerald-500 shadow-2xl overflow-hidden page-transition">
+      <div class="bg-emerald-600 text-white px-6 py-4 flex items-center justify-between">
+        <h3 id="exampleModalTitle" class="text-xl font-extrabold">Contoh Perilaku Sehari-hari</h3>
+        <button onclick="closeModal('exampleModal')" class="bg-white/20 hover:bg-white/30 text-white w-10 h-10 rounded-full font-extrabold text-xl flex items-center justify-center">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div id="exampleModalBody" class="p-6 space-y-4 max-h-[80vh] overflow-y-auto"></div>
+    </div>
+  </div>
+
+  <!-- MODAL MENU GURU, WORD (.DOCX), GOOGLE DOCS, KUNCI JAWABAN & PETUNJUK -->
+  <div id="teacherModal" class="fixed inset-0 bg-slate-900/75 hidden items-center justify-center p-4 z-50 backdrop-blur-sm">
+    <div class="bg-white rounded-3xl max-w-4xl w-full border-4 border-slate-800 shadow-2xl overflow-hidden page-transition">
+      <div class="bg-slate-800 text-white px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <i class="fa-solid fa-chalkboard-user text-2xl text-amber-400"></i>
+          <h3 class="text-xl font-extrabold">Pusat Guru, Dokumentasi & Perangkat Ajar</h3>
+        </div>
+        <button onclick="closeModal('teacherModal')" class="bg-white/20 hover:bg-white/30 text-white w-10 h-10 rounded-full font-extrabold text-xl flex items-center justify-center">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Tab Navigasi Menu Guru -->
+      <div class="bg-slate-100 px-4 py-2 border-b flex flex-wrap gap-2">
+        <button onclick="switchTeacherTab('docs')" id="tabDocs" class="teacher-tab bg-blue-600 text-white px-4 py-2 rounded-xl font-bold text-sm">1. Unduh Word & Google Docs</button>
+        <button onclick="switchTeacherTab('guide')" id="tabGuide" class="teacher-tab bg-white text-slate-700 px-4 py-2 rounded-xl font-bold text-sm">2. Petunjuk Guru & Isyarat</button>
+        <button onclick="switchTeacherTab('keys')" id="tabKeys" class="teacher-tab bg-white text-slate-700 px-4 py-2 rounded-xl font-bold text-sm">3. Kunci Jawaban Kuis (15)</button>
+      </div>
+
+      <div id="teacherTabContent" class="p-6 max-h-[75vh] overflow-y-auto space-y-5">
+        <!-- Konten Tab Guru dirender lewat JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTIFIKASI TOAST VISUAL (Pengganti alert() yang ramah tunarungu) -->
+  <div id="visualToast" class="fixed bottom-20 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-6 py-3 rounded-2xl shadow-2xl font-bold text-base z-50 hidden items-center gap-3 border-2 border-amber-400">
+    <i class="fa-solid fa-circle-check text-emerald-400 text-xl"></i>
+    <span id="visualToastText">Pesan notifikasi</span>
+  </div>
+
+  <script>
+    // =========================================================================
+    // 1. DATA MATERI & ILUSTRASI SVG KONKRET (TANPA MENGGAMBARKAN ZAT ALLAH)
+    // =========================================================================
+
+    // Fungsi pembantu membuat ilustrasi SVG manusia ekspresif & konkret sesuai usia remaja SLB Fase F
+    function getIllustrationSVG(type) {
+      const illustrations = {
+        heroStudent: `
+          <svg viewBox="0 0 360 220" class="w-full h-auto rounded-2xl bg-gradient-to-br from-blue-100 via-sky-50 to-emerald-100 p-2">
+            <!-- Latar Kelas Ramah Visual -->
+            <rect x="20" y="20" width="320" height="180" rx="20" fill="#ffffff" stroke="#93c5fd" stroke-width="3"/>
+            <rect x="45" y="35" width="130" height="75" rx="10" fill="#065f46"/>
+            <text x="110" y="65" text-anchor="middle" fill="#fde047" font-size="14" font-weight="bold">ASMAUL HUSNA</text>
+            <text x="110" y="88" text-anchor="middle" fill="#ffffff" font-size="11">4 Sifat Mulia Allah</text>
+            <!-- Siswa Remaja Berpeci Berkomunikasi Bahasa Isyarat -->
+            <circle cx="245" cy="82" r="24" fill="#fed7aa"/>
+            <path d="M223 72 Q245 52 267 72 Z" fill="#1e293b"/>
+            <circle cx="237" cy="80" r="2.5" fill="#1e293b"/>
+            <circle cx="253" cy="80" r="2.5" fill="#1e293b"/>
+            <path d="M238 92 Q245 99 252 92" stroke="#1e293b" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <path d="M210 175 C210 130, 280 130, 280 175 Z" fill="#2563eb"/>
+            <!-- Gerakan Tangan Isyarat Ramah -->
+            <circle cx="202" cy="128" r="10" fill="#fed7aa"/>
+            <circle cx="288" cy="120" r="10" fill="#fed7aa"/>
+            <!-- Siswi Berhijab Membaca & Tersenyum -->
+            <circle cx="115" cy="132" r="22" fill="#fed7aa"/>
+            <path d="M90 135 C90 102, 140 102, 140 135 L145 180 L85 180 Z" fill="#10b981"/>
+            <circle cx="115" cy="132" r="17" fill="#fed7aa"/>
+            <circle cx="109" cy="130" r="2.2" fill="#1e293b"/>
+            <circle cx="121" cy="130" r="2.2" fill="#1e293b"/>
+            <path d="M110 139 Q115 144 120 139" stroke="#1e293b" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <rect x="95" y="155" width="40" height="24" rx="4" fill="#fef08a" stroke="#eab308" stroke-width="2"/>
+          </svg>`,
+
+        assami: `
+          <svg viewBox="0 0 320 190" class="w-full h-auto rounded-2xl bg-blue-50">
+            <rect x="10" y="10" width="300" height="170" rx="16" fill="#eff6ff" stroke="#3b82f6" stroke-width="2.5"/>
+            <!-- Remaja Berdoa Khusyuk -->
+            <circle cx="110" cy="65" r="22" fill="#fed7aa"/>
+            <path d="M90 56 Q110 40 130 56 Z" fill="#1e3a8a"/>
+            <circle cx="103" cy="64" r="2" fill="#1e293b"/>
+            <circle cx="117" cy="64" r="2" fill="#1e293b"/>
+            <path d="M105 74 Q110 78 115 74" stroke="#1e293b" stroke-width="2" fill="none"/>
+            <path d="M80 165 C80 115, 140 115, 140 165 Z" fill="#3b82f6"/>
+            <!-- Dua Telapak Tangan Menengadah Berdoa -->
+            <ellipse cx="98" cy="108" rx="9" ry="13" fill="#fed7aa" transform="rotate(-15 98 108)"/>
+            <ellipse cx="122" cy="108" rx="9" ry="13" fill="#fed7aa" transform="rotate(15 122 108)"/>
+            <!-- Simbol Menghargai Teman Berbicara -->
+            <rect x="175" y="40" width="115" height="110" rx="14" fill="#ffffff" stroke="#93c5fd" stroke-width="2"/>
+            <circle cx="212" cy="78" r="14" fill="#fed7aa"/>
+            <circle cx="255" cy="78" r="14" fill="#fed7aa"/>
+            <path d="M226 65 L242 65" stroke="#2563eb" stroke-width="3" marker-end="url(#arrow)"/>
+            <text x="232" y="122" text-anchor="middle" fill="#1e40af" font-size="11" font-weight="bold">Berdoa &</text>
+            <text x="232" y="137" text-anchor="middle" fill="#1e40af" font-size="11" font-weight="bold">Menghargai</text>
+          </svg>`,
+
+        albashir: `
+          <svg viewBox="0 0 320 190" class="w-full h-auto rounded-2xl bg-emerald-50">
+            <rect x="10" y="10" width="300" height="170" rx="16" fill="#ecfdf5" stroke="#10b981" stroke-width="2.5"/>
+            <!-- Anak Menemukan Dompet/Uang dan Mengembalikan -->
+            <circle cx="95" cy="68" r="21" fill="#fed7aa"/>
+            <path d="M76 58 Q95 42 114 58 Z" fill="#064e3b"/>
+            <circle cx="89" cy="66" r="2" fill="#1e293b"/>
+            <circle cx="101" cy="66" r="2" fill="#1e293b"/>
+            <path d="M89 76 Q95 82 101 76" stroke="#1e293b" stroke-width="2" fill="none"/>
+            <path d="M68 165 C68 115, 122 115, 122 165 Z" fill="#10b981"/>
+            <!-- Uang/Barang yang dikembalikan dengan jujur -->
+            <rect x="132" y="95" width="46" height="26" rx="4" fill="#86efac" stroke="#16a34a" stroke-width="2"/>
+            <text x="155" y="112" text-anchor="middle" fill="#14532d" font-size="11" font-weight="bold">JUJUR</text>
+            <!-- Guru menerima dengan senyum -->
+            <circle cx="225" cy="64" r="22" fill="#fed7aa"/>
+            <path d="M200 66 C200 34, 250 34, 250 66 L255 110 L195 110 Z" fill="#047857"/>
+            <circle cx="225" cy="64" r="16" fill="#fed7aa"/>
+            <path d="M219 69 Q225 75 231 69" stroke="#1e293b" stroke-width="2" fill="none"/>
+            <path d="M195 165 C195 112, 255 112, 255 165 Z" fill="#059669"/>
+          </svg>`,
+
+        alalim: `
+          <svg viewBox="0 0 320 190" class="w-full h-auto rounded-2xl bg-amber-50">
+            <rect x="10" y="10" width="300" height="170" rx="16" fill="#fffbeb" stroke="#f59e0b" stroke-width="2.5"/>
+            <!-- Remaja Belajar Sungguh-sungguh & Berkata Jujur -->
+            <circle cx="105" cy="65" r="21" fill="#fed7aa"/>
+            <path d="M85 57 Q105 40 125 57 Z" fill="#78350f"/>
+            <path d="M99 74 Q105 80 111 74" stroke="#1e293b" stroke-width="2" fill="none"/>
+            <path d="M75 165 C75 115, 135 115, 135 165 Z" fill="#f59e0b"/>
+            <!-- Buku Terbuka -->
+            <rect x="78" y="132" width="54" height="30" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="2"/>
+            <!-- Balon Pikiran Jujur -->
+            <rect x="165" y="42" width="125" height="95" rx="16" fill="#ffffff" stroke="#f59e0b" stroke-width="2.5"/>
+            <i class="fa-solid fa-check"></i>
+            <text x="227" y="78" text-anchor="middle" fill="#b45309" font-size="13" font-weight="bold">BERKATA JUJUR</text>
+            <text x="227" y="100" text-anchor="middle" fill="#475569" font-size="11">Tidak Berbohong &</text>
+            <text x="227" y="116" text-anchor="middle" fill="#475569" font-size="11">Rajin Belajar</text>
+          </svg>`,
+
+        alkhabir: `
+          <svg viewBox="0 0 320 190" class="w-full h-auto rounded-2xl bg-indigo-50">
+            <rect x="10" y="10" width="300" height="170" rx="16" fill="#eef2ff" stroke="#6366f1" stroke-width="2.5"/>
+            <!-- Remaja Memeriksa Tugas dengan Teliti & Merapikan Kelas -->
+            <circle cx="100" cy="65" r="21" fill="#fed7aa"/>
+            <path d="M77 67 C77 36, 123 36, 123 67 L127 110 L73 110 Z" fill="#4338ca"/>
+            <circle cx="100" cy="65" r="15" fill="#fed7aa"/>
+            <path d="M95 70 Q100 75 105 70" stroke="#1e293b" stroke-width="2" fill="none"/>
+            <path d="M70 165 C70 112, 130 112, 130 165 Z" fill="#4f46e5"/>
+            <!-- Lembar Tugas dengan Tanda Centang Teliti -->
+            <rect x="165" y="38" width="120" height="115" rx="12" fill="#ffffff" stroke="#6366f1" stroke-width="2.5"/>
+            <path d="M185 68 L195 78 L212 58" stroke="#16a34a" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <line x1="222" y1="68" x2="268" y2="68" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+            <path d="M185 98 L195 108 L212 88" stroke="#16a34a" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <line x1="222" y1="98" x2="268" y2="98" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+            <text x="225" y="136" text-anchor="middle" fill="#3730a3" font-size="11" font-weight="bold">TELITI & AMANAH</text>
+          </svg>`
+      };
+      return illustrations[type] || illustrations.heroStudent;
+    }
+
+    // Data 4 Submateri Asmaul Husna
+    const asmaulHusnaData = [
+      {
+        id: 'assami',
+        arab: 'السَّمِيعُ',
+        latin: "As-Sami'",
+        arti: 'Allah Maha Mendengar',
+        penjelasan: 'Allah mendengar semua suara dan doa kita.',
+        color: 'blue',
+        svg: 'assami',
+        signGuide: 'Isyaratkan kata "ALLAH" (telunjuk kanan menunjuk ke atas dengan ekspresi takzim), lalu arahkan tangan ke telinga sebagai isyarat "MENDENGAR", diikuti ekspresi wajah tenang dan penuh harap saat berdoa.',
+        perilaku: [
+          'Berdoa kepada Allah dengan khusyuk.',
+          'Mendengarkan guru ketika memberikan penjelasan (memperhatikan isyarat guru).',
+          'Menghargai orang lain yang sedang berbicara atau berisyarat.',
+          'Tidak mengejek teman yang sedang berkomunikasi.'
+        ],
+        contohDetail: {
+          situasi: 'Di Kelas Saat Guru Menjelaskan Materi',
+          cerita: 'Andi memandang guru dengan penuh perhatian. Andi tidak mengganggu teman di sebelahnya dan berdoa sebelum belajar karena yakin Allah Maha Mendengar.',
+          hikmah: 'Orang yang meyakini sifat As-Sami\' selalu menjaga ucapan, isyarat, dan sikap menghargai sesama.'
+        }
+      },
+      {
+        id: 'albashir',
+        arab: 'الْبَصِيرُ',
+        latin: 'Al-Bashir',
+        arti: 'Allah Maha Melihat',
+        penjelasan: 'Allah melihat semua yang kita lakukan.',
+        color: 'emerald',
+        svg: 'albashir',
+        signGuide: 'Isyaratkan kata "ALLAH" (menunjuk ke atas), lalu dua jari menunjuk ke arah mata dan diarahkan ke depan sebagai isyarat "MELIHAT", dengan ekspresi wajah sadar dan jujur.',
+        perilaku: [
+          'Berbuat jujur di mana saja.',
+          'Tidak mengambil barang milik teman.',
+          'Membantu orang lain yang membutuhkan.',
+          'Tidak melakukan perbuatan buruk meskipun tidak ada orang yang melihat.'
+        ],
+        contohDetail: {
+          situasi: 'Menemukan Uang di Lantai Kelas yang Sepi',
+          cerita: 'Budi melihat uang jatuh di lantai saat kelas kosong. Budi ingat Allah Maha Melihat (Al-Bashir), lalu menyerahkan uang itu kepada guru.',
+          hikmah: 'Keyakinan bahwa Allah selalu melihat membuat kita tetap jujur walaupun sendirian.'
+        }
+      },
+      {
+        id: 'alalim',
+        arab: 'الْعَلِيمُ',
+        latin: "Al-'Alim",
+        arti: 'Allah Maha Mengetahui',
+        penjelasan: 'Allah mengetahui semua yang kita pikirkan, rasakan, dan lakukan.',
+        color: 'amber',
+        svg: 'alalim',
+        signGuide: 'Isyaratkan kata "ALLAH" (menunjuk ke atas), lalu sentuh pelipis/kening dengan ujung jari sebagai isyarat "MENGETAHUI / ILMU", dengan ekspresi wajah mantap dan jujur.',
+        perilaku: [
+          'Berkata jujur dan mengakui kesalahan.',
+          'Tidak berbohong kepada orang tua, guru, dan teman.',
+          'Belajar dengan sungguh-sungguh.',
+          'Menyampaikan kebenaran dengan sopan.'
+        ],
+        contohDetail: {
+          situasi: 'Tidak Sengaja Merusakkan Pensil Teman',
+          cerita: 'Siti tidak sengaja mematahkan pensil milik temannya. Siti tidak menyembunyikannya, melainkan berkata jujur dan meminta maaf karena Allah Maha Mengetahui.',
+          hikmah: 'Tidak ada rahasia yang tersembunyi dari Allah. Jujur membuat hati menjadi tenang.'
+        }
+      },
+      {
+        id: 'alkhabir',
+        arab: 'الْخَبِيرُ',
+        latin: 'Al-Khabir',
+        arti: 'Allah Maha Teliti Mengetahui Segala Sesuatu',
+        penjelasan: 'Allah mengetahui segala sesuatu sampai hal yang paling kecil dan tersembunyi.',
+        color: 'indigo',
+        svg: 'alkhabir',
+        signGuide: 'Isyaratkan kata "ALLAH" (menunjuk ke atas), kemudian isyarat "MENGETAHUI" ditambah gerakan jari memeriksa dengan cermat sebagai isyarat "TELITI".',
+        perilaku: [
+          'Berhati-hati ketika bertindak.',
+          'Memeriksa kembali pekerjaan atau tugas sekolah.',
+          'Menjaga amanah (titipan orang lain).',
+          'Bertanggung jawab terhadap tugas.'
+        ],
+        contohDetail: {
+          situasi: 'Tugas Piket Kebersihan Kelas',
+          cerita: 'Rina mendapat jadwal piket kelas. Rina menyapu hingga ke sudut meja, merapikan kursi, dan mengecek kembali kebersihan kelas dengan teliti.',
+          hikmah: 'Meneladani Al-Khabir melatih kita bekerja rapi, cermat, teliti, dan bertanggung jawab.'
+        }
+      }
+    ];
+
+    // Data Cerita Bergambar (Halaman 4)
+    const storiesData = [
+      {
+        id: 1,
+        asma: "As-Sami' (Allah Maha Mendengar)",
+        title: 'Cerita 1: Andi Berdoa dan Menghargai Guru',
+        svg: 'assami',
+        text: 'Andi sedang berdoa sebelum belajar. Andi juga memperhatikan guru dan menghargai teman yang sedang berbicara.',
+        question: 'Perilaku baik apa yang dilakukan Andi?',
+        options: [
+          { label: 'Berdoa dan menghargai guru serta teman', correct: true },
+          { label: 'Mengganggu teman yang berbicara', correct: false },
+          { label: 'Tidak mau memperhatikan guru', correct: false }
+        ]
+      },
+      {
+        id: 2,
+        asma: 'Al-Bashir (Allah Maha Melihat)',
+        title: 'Cerita 2: Budi Menemukan Uang di Kelas',
+        svg: 'albashir',
+        text: 'Budi menemukan uang di lantai kelas saat tidak ada orang lain. Budi menyerahkan uang tersebut kepada guru.',
+        question: 'Apakah Budi berbuat jujur?',
+        options: [
+          { label: 'Ya, Budi sangat jujur karena Allah Maha Melihat', correct: true },
+          { label: 'Tidak, Budi menyembunyikan uangnya', correct: false },
+          { label: 'Budi membiarkan uang di lantai', correct: false }
+        ]
+      },
+      {
+        id: 3,
+        asma: "Al-'Alim (Allah Maha Mengetahui)",
+        title: 'Cerita 3: Siti Mengakui Kesalahan',
+        svg: 'alalim',
+        text: 'Siti tidak sengaja merusakkan pensil temannya. Siti segera mengakui kesalahannya dan meminta maaf dengan tulus.',
+        question: 'Apakah Siti berkata jujur?',
+        options: [
+          { label: 'Ya, Siti berkata jujur dan meminta maaf', correct: true },
+          { label: 'Tidak, Siti menyalahkan orang lain', correct: false },
+          { label: 'Siti berbohong kepada temannya', correct: false }
+        ]
+      },
+      {
+        id: 4,
+        asma: 'Al-Khabir (Allah Maha Teliti)',
+        title: 'Cerita 4: Rina Piket dengan Teliti',
+        svg: 'alkhabir',
+        text: 'Rina mendapat tugas merapikan kelas. Rina menyapu dan mengecek meja dengan teliti dan bertanggung jawab.',
+        question: 'Apakah Rina sudah bertanggung jawab?',
+        options: [
+          { label: 'Ya, Rina sangat teliti dan bertanggung jawab', correct: true },
+          { label: 'Tidak, Rina meninggalkan kelas yang kotor', correct: false },
+          { label: 'Rina menyuruh teman lain mengerjakan tugasnya', correct: false }
+        ]
+      }
+    ];
+
+    // Data Permainan Mencocokkan (Halaman 5)
+    const matchingItems = [
+      {
+        id: 'm1',
+        behavior: 'Anak berdoa dengan khusyuk dan menghargai teman berbicara',
+        icon: 'fa-hands-praying',
+        color: 'bg-blue-100 border-blue-400 text-blue-900',
+        answer: "As-Sami'"
+      },
+      {
+        id: 'm2',
+        behavior: 'Anak mengembalikan uang temuan meskipun tidak ada yang melihat',
+        icon: 'fa-hand-holding-heart',
+        color: 'bg-emerald-100 border-emerald-400 text-emerald-900',
+        answer: 'Al-Bashir'
+      },
+      {
+        id: 'm3',
+        behavior: 'Anak berkata jujur mengakui kesalahan dan rajin belajar',
+        icon: 'fa-book-open-reader',
+        color: 'bg-amber-100 border-amber-400 text-amber-900',
+        answer: "Al-'Alim"
+      },
+      {
+        id: 'm4',
+        behavior: 'Anak memeriksa tugas dengan teliti dan merapikan alat belajar',
+        icon: 'fa-magnifying-glass-chart',
+        color: 'bg-indigo-100 border-indigo-400 text-indigo-900',
+        answer: 'Al-Khabir'
+      }
+    ];
+
+    // Data 15 Soal Kuis Interaktif (Halaman 6) - Setiap soal & opsi memiliki ikon/visual
+    const quizMasterData = [
+      {
+        id: 1,
+        question: 'Allah Maha Mendengar disebut ....',
+        icon: 'fa-ear-listen',
+        options: [
+          { text: "As-Sami'", icon: 'fa-hands-praying', isCorrect: true },
+          { text: 'Al-Bashir', icon: 'fa-eye', isCorrect: false },
+          { text: "Al-'Alim", icon: 'fa-brain', isCorrect: false }
+        ]
+      },
+      {
+        id: 2,
+        question: 'Anak mengembalikan uang yang ditemukan. Perilaku tersebut adalah ....',
+        icon: 'fa-wallet',
+        options: [
+          { text: 'Jujur', icon: 'fa-circle-check', isCorrect: true },
+          { text: 'Berbohong', icon: 'fa-circle-xmark', isCorrect: false },
+          { text: 'Mengambil barang', icon: 'fa-hand-fist', isCorrect: false }
+        ]
+      },
+      {
+        id: 3,
+        question: 'Allah Maha Melihat disebut ....',
+        icon: 'fa-eye',
+        options: [
+          { text: 'Al-Khabir', icon: 'fa-magnifying-glass', isCorrect: false },
+          { text: 'Al-Bashir', icon: 'fa-eye', isCorrect: true },
+          { text: "As-Sami'", icon: 'fa-ear-listen', isCorrect: false }
+        ]
+      },
+      {
+        id: 4,
+        question: 'Ketika melakukan kesalahan, kita harus ....',
+        icon: 'fa-heart-crack',
+        options: [
+          { text: 'Berbohong', icon: 'fa-ban', isCorrect: false },
+          { text: 'Menyembunyikan kesalahan', icon: 'fa-mask', isCorrect: false },
+          { text: 'Mengakui kesalahan', icon: 'fa-handshake', isCorrect: true }
+        ]
+      },
+      {
+        id: 5,
+        question: 'Allah Maha Mengetahui segala pikiran dan perasaan kita disebut ....',
+        icon: 'fa-lightbulb',
+        options: [
+          { text: "Al-'Alim", icon: 'fa-book-open', isCorrect: true },
+          { text: "As-Sami'", icon: 'fa-ear-listen', isCorrect: false },
+          { text: 'Al-Bashir', icon: 'fa-eye', isCorrect: false }
+        ]
+      },
+      {
+        id: 6,
+        question: 'Allah Maha Teliti Mengetahui Segala Sesuatu disebut ....',
+        icon: 'fa-magnifying-glass',
+        options: [
+          { text: 'Al-Khabir', icon: 'fa-list-check', isCorrect: true },
+          { text: "As-Sami'", icon: 'fa-hands-praying', isCorrect: false },
+          { text: 'Al-Bashir', icon: 'fa-eye', isCorrect: false }
+        ]
+      },
+      {
+        id: 7,
+        question: 'Saat teman sedang berbicara atau berisyarat, sikap baik kita adalah ....',
+        icon: 'fa-comments',
+        options: [
+          { text: 'Menghargai dan memperhatikan', icon: 'fa-face-smile', isCorrect: true },
+          { text: 'Mengejek teman', icon: 'fa-face-angry', isCorrect: false },
+          { text: 'Memotong pembicaraan', icon: 'fa-hand', isCorrect: false }
+        ]
+      },
+      {
+        id: 8,
+        question: 'Kita tidak mencontek saat ulangan meskipun guru tidak melihat, karena Allah bersifat ....',
+        icon: 'fa-file-pen',
+        options: [
+          { text: 'Al-Bashir (Maha Melihat)', icon: 'fa-eye', isCorrect: true },
+          { text: 'Lupa', icon: 'fa-question', isCorrect: false },
+          { text: 'Tidak peduli', icon: 'fa-ban', isCorrect: false }
+        ]
+      },
+      {
+        id: 9,
+        question: 'Sebelum mengirim tugas sekolah, Rina memeriksa jawabannya kembali. Rina meneladani sifat ....',
+        icon: 'fa-clipboard-check',
+        options: [
+          { text: 'Al-Khabir (Maha Teliti)', icon: 'fa-magnifying-glass-chart', isCorrect: true },
+          { text: 'Bermalas-malasan', icon: 'fa-bed', isCorrect: false },
+          { text: 'Tergesa-gesa', icon: 'fa-person-running', isCorrect: false }
+        ]
+      },
+      {
+        id: 10,
+        question: 'Berdoa kepada Allah setelah shalat adalah contoh pengamalan sifat ....',
+        icon: 'fa-hands-praying',
+        options: [
+          { text: "As-Sami' (Maha Mendengar)", icon: 'fa-ear-listen', isCorrect: true },
+          { text: 'Sombong', icon: 'fa-xmark', isCorrect: false },
+          { text: 'Putus asa', icon: 'fa-face-sad-tear', isCorrect: false }
+        ]
+      },
+      {
+        id: 11,
+        question: 'Teman menitipkan buku kepada kita. Sikap menjaga amanah adalah ....',
+        icon: 'fa-book',
+        options: [
+          { text: 'Menjaganya dengan baik dan teliti', icon: 'fa-shield-heart', isCorrect: true },
+          { text: 'Merobek halaman buku', icon: 'fa-scissors', isCorrect: false },
+          { text: 'Menghilangkan buku', icon: 'fa-trash', isCorrect: false }
+        ]
+      },
+      {
+        id: 12,
+        question: 'Siti belajar dengan sungguh-sungguh untuk menambah ilmu. Ini sesuai dengan sifat ....',
+        icon: 'fa-graduation-cap',
+        options: [
+          { text: "Al-'Alim (Maha Mengetahui)", icon: 'fa-book-open-reader', isCorrect: true },
+          { text: 'Malas belajar', icon: 'fa-ban', isCorrect: false },
+          { text: 'Bermain terus', icon: 'fa-gamepad', isCorrect: false }
+        ]
+      },
+      {
+        id: 13,
+        question: 'Arti dari Asmaul Husna Al-Bashir adalah ....',
+        icon: 'fa-eye',
+        options: [
+          { text: 'Allah Maha Melihat', icon: 'fa-eye', isCorrect: true },
+          { text: 'Allah Maha Mendengar', icon: 'fa-ear-listen', isCorrect: false },
+          { text: 'Allah Maha Kaya', icon: 'fa-coins', isCorrect: false }
+        ]
+      },
+      {
+        id: 14,
+        question: 'Jika melihat sampah berserakan di halaman sekolah, perilaku baik kita adalah ....',
+        icon: 'fa-broom',
+        options: [
+          { text: 'Membuang sampah ke tempat sampah', icon: 'fa-trash-can', isCorrect: true },
+          { text: 'Menambah sampah lagi', icon: 'fa-xmark', isCorrect: false },
+          { text: 'Pura-pura tidak tahu', icon: 'fa-eye-slash', isCorrect: false }
+        ]
+      },
+      {
+        id: 15,
+        question: 'Mengapa kita harus membiasakan berbuat baik setiap hari?',
+        icon: 'fa-heart',
+        options: [
+          { text: 'Karena Allah selalu mendengar, melihat, dan mengetahui', icon: 'fa-star', isCorrect: true },
+          { text: 'Supaya dipuji orang saja', icon: 'fa-award', isCorrect: false },
+          { text: 'Hanya saat ada guru saja', icon: 'fa-user-tie', isCorrect: false }
+        ]
+      }
+    ];
+
+    // Data Tantangan Perilaku Baik (Halaman 7)
+    const challengesData = [
+      { id: 'c1', text: 'Aku berdoa kepada Allah.', icon: 'fa-hands-praying', color: 'blue' },
+      { id: 'c2', text: 'Aku berkata jujur.', icon: 'fa-comment-dots', color: 'emerald' },
+      { id: 'c3', text: 'Aku membantu teman.', icon: 'fa-handshake-angle', color: 'amber' },
+      { id: 'c4', text: 'Aku menjaga barang milik orang lain.', icon: 'fa-shield-halved', color: 'indigo' },
+      { id: 'c5', text: 'Aku bertanggung jawab.', icon: 'fa-user-check', color: 'teal' },
+      { id: 'c6', text: 'Aku mengerjakan tugas dengan teliti.', icon: 'fa-list-check', color: 'sky' }
+    ];
+
+    // Data Refleksi Pembelajaran (Halaman 8)
+    const reflectionsData = [
+      { id: 'r1', question: 'Apakah kamu senang belajar hari ini?' },
+      { id: 'r2', question: 'Apakah kamu sudah mengenal empat Asmaul Husna?' },
+      { id: 'r3', question: 'Apakah kamu mau menjadi anak yang jujur?' },
+      { id: 'r4', question: 'Apakah kamu mau membiasakan perilaku baik?' }
+    ];
+
+    // =========================================================================
+    // 2. STATE APLIKASI & PENYIMPANAN LOKAL (OFFLINE READY)
+    // =========================================================================
+    let state = {
+      currentPage: 1,
+      totalPages: 9,
+      studentName: '',
+      storyAnswers: {},
+      selectedMatchItem: null,
+      matchedPairs: {},
+      quizQuestions: [],
+      quizAnswers: {},
+      quizSubmitted: false,
+      challengesDone: {},
+      reflections: {},
+      customSignVideos: JSON.parse(localStorage.getItem('pai_slb_sign_videos') || '{}'),
+      googleDocsUrl: localStorage.getItem('pai_slb_gdocs_url') || '',
+      activeSignTopic: 'umum'
+    };
+
+    // Fungsi mengacak array (Fisher-Yates Shuffle)
+    function shuffleArray(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    // Inisialisasi soal kuis teracak
+    function initQuiz() {
+      state.quizQuestions = shuffleArray(quizMasterData).map(q => ({
+        ...q,
+        shuffledOptions: shuffleArray(q.options)
+      }));
+      state.quizAnswers = {};
+      state.quizSubmitted = false;
+    }
+
+    // =========================================================================
+    // 3. NAVIGASI & RENDER HALAMAN (1 - 9)
+    // =========================================================================
+    function goToPage(pageNum) {
+      if (pageNum < 1 || pageNum > state.totalPages) return;
+      state.currentPage = pageNum;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      updateHeaderAndFooter();
+      renderCurrentPage();
+    }
+
+    function nextPage() {
+      goToPage(state.currentPage + 1);
+    }
+
+    function prevPage() {
+      goToPage(state.currentPage - 1);
+    }
+
+    function updateHeaderAndFooter() {
+      const pct = Math.round((state.currentPage / state.totalPages) * 100);
+      document.getElementById('progressBar').style.width = pct + '%';
+      document.getElementById('progressText').textContent = `${state.currentPage} / ${state.totalPages}`;
+
+      document.getElementById('btnPrev').disabled = state.currentPage === 1;
+      document.getElementById('btnNext').disabled = state.currentPage === state.totalPages;
+
+      // Update gaya pill navigasi atas
+      for (let i = 1; i <= state.totalPages; i++) {
+        const btn = document.getElementById('navBtn' + i);
+        if (!btn) continue;
+        if (i === state.currentPage) {
+          btn.className = 'nav-pill px-3 py-1.5 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-1.5 border-2 bg-blue-600 text-white border-blue-700 shadow-sm';
+        } else {
+          btn.className = 'nav-pill px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 border-2 bg-white text-slate-700 border-slate-200 hover:border-blue-400';
+        }
+      }
+    }
+
+    function renderCurrentPage() {
+      const container = document.getElementById('appContainer');
+      switch (state.currentPage) {
+        case 1: container.innerHTML = renderPage1(); break;
+        case 2: container.innerHTML = renderPage2(); break;
+        case 3: container.innerHTML = renderPage3(); break;
+        case 4: container.innerHTML = renderPage4(); break;
+        case 5: container.innerHTML = renderPage5(); break;
+        case 6: container.innerHTML = renderPage6(); break;
+        case 7: container.innerHTML = renderPage7(); break;
+        case 8: container.innerHTML = renderPage8(); break;
+        case 9: container.innerHTML = renderPage9(); break;
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // HALAMAN 1: BERANDA
+    // -------------------------------------------------------------------------
+    function renderPage1() {
+      return `
+        <section class="page-transition bg-white rounded-3xl border-4 border-blue-200 shadow-xl p-6 sm:p-10">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <!-- Kolom Teks & Tombol Utama -->
+            <div class="lg:col-span-7 space-y-5">
+              <div class="inline-flex items-center gap-2 bg-amber-100 border-2 border-amber-300 text-amber-900 px-4 py-1.5 rounded-full font-extrabold text-sm">
+                <i class="fa-solid fa-hands-asl-interpreting text-lg"></i>
+                <span>MEDIA VISUAL INTERAKTIF • SLB FASE F</span>
+              </div>
+
+              <h2 class="text-3xl sm:text-5xl font-extrabold text-blue-900 leading-tight">
+                AYO MENGENAL ASMAUL HUSNA
+              </h2>
+              <p class="text-xl sm:text-2xl font-bold text-emerald-700">
+                Belajar Mengenal Allah melalui Perilaku Baik
+              </p>
+              <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
+                Media ini dirancang khusus dengan tampilan visual jelas, gambar nyata, bahasa sederhana, dan dukungan <strong>Bahasa Isyarat</strong>.
+              </p>
+
+              <!-- Input Nama Peserta Didik (Opsional untuk Sertifikat/Cetak Hasil) -->
+              <div class="bg-blue-50 border-2 border-blue-200 rounded-2xl p-4 max-w-md">
+                <label class="block text-sm font-extrabold text-blue-900 mb-1">
+                  <i class="fa-solid fa-user-pen"></i> Tulis Namamu (Untuk Rekap Nilai):
+                </label>
+                <input type="text" value="${state.studentName}" oninput="state.studentName = this.value" placeholder="Ketik nama kamu di sini..." class="w-full px-4 py-2.5 rounded-xl border-2 border-blue-300 font-bold text-slate-800 focus:border-blue-600 outline-none bg-white" />
+              </div>
+
+              <!-- 3 Tombol Utama Halaman Beranda -->
+              <div class="flex flex-wrap gap-3 pt-2">
+                <button onclick="goToPage(2)" class="bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-lg sm:text-xl px-7 py-4 rounded-2xl btn-3d flex items-center gap-3">
+                  <i class="fa-solid fa-play text-2xl"></i>
+                  <span>MULAI BELAJAR</span>
+                </button>
+
+                <button onclick="toggleHomePanel('petunjuk')" class="bg-amber-400 hover:bg-amber-500 text-slate-900 font-extrabold text-base sm:text-lg px-5 py-4 rounded-2xl btn-3d flex items-center gap-2">
+                  <i class="fa-solid fa-circle-info text-xl"></i>
+                  <span>PETUNJUK</span>
+                </button>
+
+                <button onclick="toggleHomePanel('profil')" class="bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-base sm:text-lg px-5 py-4 rounded-2xl btn-3d flex items-center gap-2">
+                  <i class="fa-solid fa-book-bookmark text-xl"></i>
+                  <span>PROFIL MATERI</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Kolom Ilustrasi Siswa Tunarungu & 4 Asmaul Husna -->
+            <div class="lg:col-span-5 space-y-4">
+              <div class="animate-float shadow-lg rounded-2xl overflow-hidden border-4 border-blue-300">
+                ${getIllustrationSVG('heroStudent')}
+              </div>
+
+              <!-- Kartu Mini 4 Asmaul Husna -->
+              <div class="grid grid-cols-2 gap-2.5">
+                <div class="bg-blue-600 text-white p-3 rounded-2xl text-center shadow">
+                  <div class="font-arab text-2xl">السَّمِيعُ</div>
+                  <div class="font-extrabold text-sm">As-Sami'</div>
+                  <div class="text-xs text-blue-100">Maha Mendengar</div>
+                </div>
+                <div class="bg-emerald-600 text-white p-3 rounded-2xl text-center shadow">
+                  <div class="font-arab text-2xl">الْبَصِيرُ</div>
+                  <div class="font-extrabold text-sm">Al-Bashir</div>
+                  <div class="text-xs text-emerald-100">Maha Melihat</div>
+                </div>
+                <div class="bg-amber-500 text-slate-900 p-3 rounded-2xl text-center shadow">
+                  <div class="font-arab text-2xl">الْعَلِيمُ</div>
+                  <div class="font-extrabold text-sm">Al-'Alim</div>
+                  <div class="text-xs font-semibold">Maha Mengetahui</div>
+                </div>
+                <div class="bg-indigo-600 text-white p-3 rounded-2xl text-center shadow">
+                  <div class="font-arab text-2xl">الْخَبِيرُ</div>
+                  <div class="font-extrabold text-sm">Al-Khabir</div>
+                  <div class="text-xs text-indigo-100">Maha Teliti</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel Informasi Tambahan (Petunjuk / Profil Materi) -->
+          <div id="homeInfoPanel" class="hidden mt-8 bg-slate-50 border-3 border-slate-300 rounded-2xl p-6"></div>
+        </section>
+      `;
+    }
+
+    function toggleHomePanel(type) {
+      const panel = document.getElementById('homeInfoPanel');
+      panel.classList.remove('hidden');
+      if (type === 'petunjuk') {
+        panel.innerHTML = `
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-xl font-extrabold text-amber-800 flex items-center gap-2">
+              <i class="fa-solid fa-circle-info"></i> PETUNJUK PENGGUNAAN MEDIA
+            </h3>
+            <button onclick="document.getElementById('homeInfoPanel').classList.add('hidden')" class="text-slate-500 hover:text-slate-800 font-bold">Tutup ✕</button>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm font-semibold">
+            <div class="bg-white p-4 rounded-xl border-2 border-blue-200">
+              <div class="text-blue-600 text-2xl mb-1"><i class="fa-solid fa-hand-pointer"></i></div>
+              <p>1. Klik tombol besar <strong>LANJUT</strong> atau <strong>KEMBALI</strong> untuk berpindah halaman.</p>
+            </div>
+            <div class="bg-white p-4 rounded-xl border-2 border-amber-200">
+              <div class="text-amber-500 text-2xl mb-1"><i class="fa-solid fa-hands"></i></div>
+              <p>2. Klik tombol <strong>Bahasa Isyarat</strong> untuk melihat panduan gerakan BISINDO/SIBI.</p>
+            </div>
+            <div class="bg-white p-4 rounded-xl border-2 border-emerald-200">
+              <div class="text-emerald-600 text-2xl mb-1"><i class="fa-solid fa-images"></i></div>
+              <p>3. Perhatikan gambar ilustrasi dan kalimat pendek pada setiap materi dan cerita.</p>
+            </div>
+            <div class="bg-white p-4 rounded-xl border-2 border-indigo-200">
+              <div class="text-indigo-600 text-2xl mb-1"><i class="fa-solid fa-print"></i></div>
+              <p>4. Kerjakan kuis dan tantangan, lalu cetak atau unduh hasil belajarmu.</p>
+            </div>
+          </div>
+        `;
+      } else {
+        panel.innerHTML = `
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-xl font-extrabold text-blue-900 flex items-center gap-2">
+              <i class="fa-solid fa-book-bookmark"></i> PROFIL MATERI PEMBELAJARAN
+            </h3>
+            <button onclick="document.getElementById('homeInfoPanel').classList.add('hidden')" class="text-slate-500 hover:text-slate-800 font-bold">Tutup ✕</button>
+          </div>
+          <ul class="space-y-2 text-slate-700 font-semibold text-base">
+            <li><strong>Mata Pelajaran:</strong> Pendidikan Agama Islam (PAI) dan Budi Pekerti</li>
+            <li><strong>Satuan / Fase:</strong> Pendidikan Khusus (SLB) - Fase F (Peserta Didik Tunarungu)</li>
+            <li><strong>Materi Pokok:</strong> Mengenali dan Membiasakan Perilaku Baik sebagai Wujud Pengamalan Makna Sederhana Asmaul Husna</li>
+            <li><strong>Submateri:</strong> As-Sami', Al-Bashir, Al-'Alim, dan Al-Khabir</li>
+          </ul>
+        `;
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // HALAMAN 2: TUJUAN PEMBELAJARAN
+    // -------------------------------------------------------------------------
+    function renderPage2() {
+      const goals = [
+        {
+          icon: 'fa-book-quran',
+          color: 'bg-blue-600',
+          border: 'border-blue-300',
+          title: 'Aku mengenal Asmaul Husna.',
+          desc: "Mengenal 4 nama indah Allah: As-Sami', Al-Bashir, Al-'Alim, dan Al-Khabir."
+        },
+        {
+          icon: 'fa-lightbulb',
+          color: 'bg-emerald-600',
+          border: 'border-emerald-300',
+          title: 'Aku memahami arti Asmaul Husna.',
+          desc: 'Memahami arti sederhana melalui cerita dan contoh kejadian sehari-hari.'
+        },
+        {
+          icon: 'fa-scale-balanced',
+          color: 'bg-amber-500',
+          border: 'border-amber-300',
+          title: 'Aku bisa memilih perilaku baik.',
+          desc: 'Membedakan perilaku baik dan perilaku tidak baik di rumah dan sekolah.'
+        },
+        {
+          icon: 'fa-heart-circle-check',
+          color: 'bg-indigo-600',
+          border: 'border-indigo-300',
+          title: 'Aku membiasakan berbuat baik.',
+          desc: 'Bersikap jujur, peduli, sopan, dan bertanggung jawab setiap hari.'
+        }
+      ];
+
+      return `
+        <section class="page-transition space-y-6">
+          <div class="bg-white rounded-3xl border-4 border-blue-200 p-6 shadow-lg flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <span class="text-sm font-extrabold text-blue-600 uppercase">Halaman 2 • Target Belajar Kita</span>
+              <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">TUJUAN PEMBELAJARAN</h2>
+            </div>
+            <button onclick="openSignModal('tujuan')" class="bg-amber-400 hover:bg-amber-500 text-slate-900 font-extrabold px-4 py-3 rounded-2xl btn-3d flex items-center gap-2">
+              <i class="fa-solid fa-hands text-xl"></i>
+              <span>Isyarat Tujuan</span>
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            ${goals.map((g, idx) => `
+              <div class="bg-white rounded-3xl border-4 ${g.border} p-6 shadow-md flex items-start gap-5 hover:scale-[1.01] transition">
+                <div class="${g.color} text-white w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center shrink-0 text-3xl shadow">
+                  <i class="fa-solid ${g.icon}"></i>
+                </div>
+                <div class="space-y-2">
+                  <span class="inline-block bg-slate-100 text-slate-700 font-extrabold text-xs px-3 py-1 rounded-full">TUJUAN ${idx + 1}</span>
+                  <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900">${g.title}</h3>
+                  <p class="text-base text-slate-600 font-medium leading-relaxed">${g.desc}</p>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </section>
+      `;
+    }
+
+    // -------------------------------------------------------------------------
+    // HALAMAN 3: MENGENAL EMPAT ASMAUL HUSNA
+    // -------------------------------------------------------------------------
+    function renderPage3() {
+      const colorStyles = {
+        blue: { border: 'border-blue-400', header: 'bg-blue-600 text-white', badge: 'bg-blue-100 text-blue-900' },
+        emerald: { border: 'border-emerald-400', header: 'bg-emerald-600 text-white', badge: 'bg-emerald-100 text-emerald-900' },
+        amber: { border: 'border-amber-400', header: 'bg-amber-400 text-slate-900', badge: 'bg-amber-100 text-amber-900' },
+        indigo: { border: 'border-indigo-400', header: 'bg-indigo-600 text-white', badge: 'bg-indigo-100 text-indigo-900' }
+      };
+
+      return `
+        <section class="page-transition space-y-6">
+          <div class="bg-white rounded-3xl border-4 border-emerald-200 p-6 shadow-lg">
+            <span class="text-sm font-extrabold text-emerald-700 uppercase">Halaman 3 • Materi Inti</span>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">MENGENAL EMPAT ASMAUL HUSNA</h2>
+            <p class="text-base sm:text-lg text-slate-600 font-semibold mt-1">
+              Klik tombol <strong>Video Bahasa Isyarat</strong> atau <strong>LIHAT CONTOH</strong> pada setiap kartu.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            ${asmaulHusnaData.map((item, idx) => {
+              const st = colorStyles[item.color];
+              return `
+                <article class="bg-white rounded-3xl border-4 ${st.border} shadow-lg overflow-hidden flex flex-col justify-between">
+                  <div>
+                    <!-- Header Kartu Arab & Latin -->
+                    <div class="${st.header} px-6 py-4 flex items-center justify-between">
+                      <div>
+                        <span class="text-xs font-extrabold uppercase opacity-90">Asmaul Husna ${idx + 1}</span>
+                        <h3 class="text-2xl sm:text-3xl font-extrabold">${item.latin}</h3>
+                      </div>
+                      <div class="font-arab text-4xl sm:text-5xl bg-white/20 px-4 py-1 rounded-2xl">
+                        ${item.arab}
+                      </div>
+                    </div>
+
+                    <!-- Isi Kartu -->
+                    <div class="p-5 space-y-4">
+                      <div class="${st.badge} px-4 py-3 rounded-2xl">
+                        <div class="text-xs font-extrabold uppercase">Arti Sederhana:</div>
+                        <div class="text-xl font-extrabold">${item.arti}</div>
+                        <p class="text-base font-semibold mt-1">"${item.penjelasan}"</p>
+                      </div>
+
+                      <!-- Gambar Ilustrasi Konkret -->
+                      <div class="rounded-2xl overflow-hidden border-2 border-slate-200">
+                        ${getIllustrationSVG(item.svg)}
+                      </div>
+
+                      <!-- Daftar Contoh Perilaku Baik -->
+                      <div>
+                        <h4 class="font-extrabold text-slate-800 text-base mb-2 flex items-center gap-2">
+                          <i class="fa-solid fa-circle-check text-emerald-600"></i> Contoh Perilaku Baik:
+                        </h4>
+                        <ul class="space-y-1.5 text-sm sm:text-base font-semibold text-slate-700">
+                          ${item.perilaku.map(p => `
+                            <li class="flex items-start gap-2 bg-slate-50 p-2 rounded-xl border border-slate-200">
+                              <i class="fa-solid fa-check text-emerald-600 mt-1"></i>
+                              <span>${p}</span>
+                            </li>
+                          `).join('')}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Tombol Aksi Kartu -->
+                  <div class="p-4 bg-slate-50 border-t-2 border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <button onclick="openSignModal('${item.id}')" class="bg-amber-400 hover:bg-amber-500 text-slate-900 font-extrabold py-3 px-4 rounded-2xl btn-3d flex items-center justify-center gap-2 text-sm sm:text-base">
+                      <i class="fa-solid fa-video text-lg"></i>
+                      <span>Video Bahasa Isyarat</span>
+                    </button>
+                    <button onclick="openExampleModal('${item.id}')" class="bg-blue-600 hover:bg-blue-700 text-white font-extrabold py-3 px-4 rounded-2xl btn-3d flex items-center justify-center gap-2 text-sm sm:text-base">
+                      <i class="fa-solid fa-eye text-lg"></i>
+                      <span>LIHAT CONTOH</span>
+                    </button>
+                  </div>
+                </article>
+              `;
+            }).join('')}
+          </div>
+        </section>
+      `;
+    }
+
+    // -------------------------------------------------------------------------
+    // HALAMAN 4: CERITA KEHIDUPAN SEHARI-HARI
+    // -------------------------------------------------------------------------
+    function renderPage4() {
+      return `
+        <section class="page-transition space-y-6">
+          <div class="bg-white rounded-3xl border-4 border-amber-300 p-6 shadow-lg flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <span class="text-sm font-extrabold text-amber-700 uppercase">Halaman 4 • Cerita Bergambar</span>
+              <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">AKU ANAK JUJUR DAN BAIK</h2>
+              <p class="text-base text-slate-600 font-semibold mt-1">Baca cerita singkat di bawah ini, lalu klik jawaban yang benar!</p>
+            </div>
+            <button onclick="openSignModal('cerita')" class="bg-amber-400 hover:bg-amber-500 text-slate-900 font-extrabold px-4 py-3 rounded-2xl btn-3d flex items-center gap-2">
+              <i class="fa-solid fa-hands text-xl"></i>
+              <span>Isyarat Cerita</span>
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            ${storiesData.map(story => {
+              const userAns = state.storyAnswers[story.id];
+              return `
+                <div class="bg-white rounded-3xl border-4 border-blue-200 shadow-lg overflow-hidden flex flex-col justify-between">
+                  <div class="p-5 space-y-4">
+                    <div class="flex items-center justify-between gap-2">
+                      <span class="bg-blue-100 text-blue-900 font-extrabold text-xs px-3 py-1 rounded-full">${story.asma}</span>
+                    </div>
+                    <h3 class="text-xl font-extrabold text-slate-900">${story.title}</h3>
+                    <div class="rounded-2xl overflow-hidden border-2 border-slate-200">
+                      ${getIllustrationSVG(story.svg)}
+                    </div>
+                    <p class="text-lg font-bold text-slate-800 bg-amber-50 p-4 rounded-2xl border-2 border-amber-200 leading-relaxed">
+                      "${story.text}"
+                    </p>
+
+                    <!-- Pertanyaan Interaktif Cerita -->
+                    <div class="space-y-2 pt-2">
+                      <p class="font-extrabold text-blue-900 text-base">
+                        <i class="fa-solid fa-circle-question"></i> ${story.question}
+                      </p>
+                      <div class="space-y-2">
+                        ${story.options.map((opt, oIdx) => {
+                          let btnClass = 'bg-slate-100 hover:bg-blue-50 border-slate-300 text-slate-800';
+                          if (userAns !== undefined) {
+                            if (opt.correct) {
+                              btnClass = 'bg-emerald-600 border-emerald-700 text-white';
+                            } else if (userAns === oIdx && !opt.correct) {
+                              btnClass = 'bg-rose-600 border-rose-700 text-white';
+                            }
+                          }
+                          return `
+                            <button onclick="answerStory(${story.id}, ${oIdx}, ${opt.correct})" class="w-full text-left p-3.5 rounded-2xl border-2 font-bold text-sm sm:text-base transition flex items-center justify-between gap-2 ${btnClass}">
+                              <span>${opt.label}</span>
+                              ${userAns !== undefined && opt.correct ? '<i class="fa-solid fa-circle-check text-xl"></i>' : ''}
+                              ${userAns === oIdx && !opt.correct ? '<i class="fa-solid fa-circle-xmark text-xl"></i>' : ''}
+                            </button>
+                          `;
+                        }).join('')}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </section>
+      `;
+    }
+
+    function answerStory(storyId, optionIdx, isCorrect) {
+      state.storyAnswers[storyId] = optionIdx;
+      renderCurrentPage();
+      showToast(isCorrect ? 'HEBAT! JAWABAN KAMU BENAR!' : 'AYO COBA PILIH JAWABAN YANG TEPAT!');
+    }
+
+    // -------------------------------------------------------------------------
+    // HALAMAN 5: PILIH PERILAKU BAIK (PERMAINAN MENCOCOKKAN GAMBAR)
+    // -------------------------------------------------------------------------
+    function renderPage5() {
+      const targets = [
+        { name: "As-Sami'", arti: 'Allah Maha Mendengar', color: 'bg-blue-600 text-white border-blue-800' },
+        { name: 'Al-Bashir', arti: 'Allah Maha Melihat', color: 'bg-emerald-600 text-white border-emerald-800' },
+        { name: "Al-'Alim", arti: 'Allah Maha Mengetahui', color: 'bg-amber-400 text-slate-900 border-amber-600' },
+        { name: 'Al-Khabir', arti: 'Allah Maha Teliti', color: 'bg-indigo-600 text-white border-indigo-800' }
+      ];
+
+      const allMatched = Object.keys(state.matchedPairs).length === matchingItems.length;
+
+      return `
+        <section class="page-transition space-y-6">
+          <div class="bg-white rounded-3xl border-4 border-indigo-200 p-6 shadow-lg flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <span class="text-sm font-extrabold text-indigo-700 uppercase">Halaman 5 • Permainan Interaktif</span>
+              <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">PILIH PERILAKU BAIK</h2>
+              <p class="text-base sm:text-lg text-slate-600 font-semibold mt-1">
+                <strong>Cara Bermain:</strong> Klik 1 gambar perilaku di sebelah kiri (atau seret), lalu klik kotak <strong>Asmaul Husna</strong> yang cocok di sebelah kanan!
+              </p>
+            </div>
+            <button onclick="resetMatchingGame()" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-extrabold px-4 py-3 rounded-2xl btn-3d flex items-center gap-2">
+              <i class="fa-solid fa-rotate-right"></i>
+              <span>Ulangi Permainan</span>
+            </button>
+          </div>
+
+          <!-- Banner Feedback Visual Besar -->
+          <div id="matchFeedbackBanner" class="hidden rounded-3xl p-5 text-center font-extrabold text-2xl sm:text-3xl shadow-lg border-4"></div>
+
+          ${allMatched ? `
+            <div class="bg-emerald-600 text-white rounded-3xl p-6 text-center shadow-xl border-4 border-emerald-800 space-y-2">
+              <div class="text-4xl"><i class="fa-solid fa-trophy text-amber-300"></i></div>
+              <h3 class="text-2xl sm:text-3xl font-extrabold">HEBAT! SEMUA PERILAKU BERHASIL DICOCOKKAN!</h3>
+              <p class="font-semibold text-emerald-100">Kamu sudah paham hubungan perilaku baik dengan Asmaul Husna.</p>
+            </div>
+          ` : ''}
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Kolom Kiri: Kartu Perilaku Baik -->
+            <div class="space-y-4">
+              <h3 class="text-lg font-extrabold text-slate-800 bg-white px-4 py-2 rounded-xl border-2 border-slate-200 inline-block">
+                1. Pilih Gambar Perilaku Baik:
+              </h3>
+              ${matchingItems.map(item => {
+                const isMatched = state.matchedPairs[item.id];
+                const isSelected = state.selectedMatchItem === item.id;
+                return `
+                  <div
+                    draggable="${!isMatched}"
+                    ondragstart="handleDragStart(event, '${item.id}')"
+                    onclick="selectMatchBehavior('${item.id}')"
+                    class="p-5 rounded-3xl border-4 transition cursor-pointer flex items-center gap-4 shadow-md ${
+                      isMatched
+                        ? 'bg-emerald-100 border-emerald-500 opacity-75 cursor-default'
+                        : isSelected
+                        ? 'bg-amber-100 border-amber-500 scale-[1.02] ring-4 ring-amber-300'
+                        : 'bg-white border-slate-300 hover:border-blue-500'
+                    }"
+                  >
+                    <div class="${item.color} w-16 h-16 rounded-2xl border-2 flex items-center justify-center text-3xl shrink-0">
+                      <i class="fa-solid ${item.icon}"></i>
+                    </div>
+                    <div class="flex-1">
+                      <p class="font-extrabold text-base sm:text-lg text-slate-900">${item.behavior}</p>
+                      ${isMatched ? `<span class="inline-block mt-1 bg-emerald-600 text-white text-xs font-extrabold px-3 py-1 rounded-full">✓ Cocok: ${item.answer}</span>` : ''}
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+
+            <!-- Kolom Kanan: Target Asmaul Husna -->
+            <div class="space-y-4">
+              <h3 class="text-lg font-extrabold text-slate-800 bg-white px-4 py-2 rounded-xl border-2 border-slate-200 inline-block">
+                2. Klik / Letakkan ke Asmaul Husna yang Tepat:
+              </h3>
+              ${targets.map(t => {
+                const matchedObj = matchingItems.find(m => state.matchedPairs[m.id] === t.name);
+                return `
+                  <div
+                    ondragover="event.preventDefault()"
+                    ondrop="handleDropTarget(event, '${t.name}')"
+                    onclick="chooseMatchTarget('${t.name}')"
+                    class="${t.color} p-6 rounded-3xl border-4 shadow-lg cursor-pointer hover:brightness-105 transition flex items-center justify-between gap-4 min-h-[104px]"
+                  >
+                    <div>
+                      <div class="text-2xl sm:text-3xl font-extrabold">${t.name}</div>
+                      <div class="text-sm sm:text-base font-bold opacity-90">${t.arti}</div>
+                    </div>
+                    <div>
+                      ${matchedObj
+                        ? `<span class="bg-white text-emerald-700 px-4 py-2 rounded-2xl font-extrabold text-sm flex items-center gap-2 shadow"><i class="fa-solid fa-circle-check text-xl"></i> SELESAI</span>`
+                        : `<span class="bg-white/25 px-4 py-2 rounded-2xl font-extrabold text-sm">KLIK DI SINI</span>`
+                      }
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    function selectMatchBehavior(id) {
+      if (state.matchedPairs[id]) return;
+      state.selectedMatchItem = id;
+      renderCurrentPage();
+    }
+
+    function handleDragStart(e, id) {
+      state.selectedMatchItem = id;
+      e.dataTransfer.setData('text/plain', id);
+    }
+
+    function handleDropTarget(e, targetName) {
+      e.preventDefault();
+      const id = e.dataTransfer.getData('text/plain') || state.selectedMatchItem;
+      if (id) {
+        state.selectedMatchItem = id;
+        chooseMatchTarget(targetName);
+      }
+    }
+
+    function chooseMatchTarget(targetName) {
+      if (!state.selectedMatchItem) {
+        showToast('Klik dulu gambar perilaku di sebelah kiri!');
+        return;
+      }
+      const item = matchingItems.find(m => m.id === state.selectedMatchItem);
+      if (!item) return;
+
+      const isRight = item.answer === targetName;
+      if (isRight) {
+        state.matchedPairs[item.id] = targetName;
+        state.selectedMatchItem = null;
+        renderCurrentPage();
+        showMatchBanner(true, 'HEBAT! KAMU BENAR!');
+      } else {
+        showMatchBanner(false, 'AYO COBA LAGI!');
+      }
+    }
+
+    function showMatchBanner(isSuccess, text) {
+      const banner = document.getElementById('matchFeedbackBanner');
+      if (!banner) return;
+      banner.classList.remove('hidden', 'bg-emerald-100', 'border-emerald-500', 'text-emerald-900', 'bg-rose-100', 'border-rose-500', 'text-rose-900');
+      if (isSuccess) {
+        banner.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-900');
+        banner.innerHTML = `<i class="fa-solid fa-face-laugh-beam text-emerald-600 mr-2"></i> ${text}`;
+      } else {
+        banner.classList.add('bg-rose-100', 'border-rose-500', 'text-rose-900');
+        banner.innerHTML = `<i class="fa-solid fa-rotate-left text-rose-600 mr-2"></i> ${text}`;
+      }
+    }
+
+    function resetMatchingGame() {
+      state.matchedPairs = {};
+      state.selectedMatchItem = null;
+      renderCurrentPage();
+    }
+
+    // -------------------------------------------------------------------------
+    // HALAMAN 6: KUIS INTERAKTIF (15 SOAL ACAK DENGAN VISUAL & UMPAN BALIK)
+    // -------------------------------------------------------------------------
+    function renderPage6() {
+      if (state.quizQuestions.length === 0) initQuiz();
+
+      const answeredCount = Object.keys(state.quizAnswers).length;
+      const correctCount = state.quizQuestions.filter(q => {
+        const chosenIdx = state.quizAnswers[q.id];
+        return chosenIdx !== undefined && q.shuffledOptions[chosenIdx]?.isCorrect;
+      }).length;
+      const score = Math.round((correctCount / state.quizQuestions.length) * 100);
+
+      const letters = ['A', 'B', 'C'];
+
+      return `
+        <section class="page-transition space-y-6">
+          <div class="bg-white rounded-3xl border-4 border-blue-300 p-6 shadow-lg flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <span class="text-sm font-extrabold text-blue-700 uppercase">Halaman 6 • Evaluasi Tanpa Batas Waktu</span>
+              <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">KUIS INTERAKTIF (15 SOAL)</h2>
+              <p class="text-base text-slate-600 font-semibold mt-1">
+                Klik gambar jawaban yang benar. Terjawab: <strong>${answeredCount} / 15</strong>
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <button onclick="resetQuiz()" class="bg-amber-400 hover:bg-amber-500 text-slate-900 font-extrabold px-4 py-3 rounded-2xl btn-3d flex items-center gap-2">
+                <i class="fa-solid fa-shuffle"></i>
+                <span>Acak Ulang Kuis</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Rekap Nilai Otomatis -->
+          <div class="bg-gradient-to-r from-blue-600 to-emerald-600 text-white rounded-3xl p-6 shadow-lg flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+              <div class="bg-white/20 w-16 h-16 rounded-2xl flex items-center justify-center text-3xl font-extrabold">
+                ${score}
+              </div>
+              <div>
+                <div class="text-sm font-bold uppercase opacity-90">Skor Otomatis Saat Ini</div>
+                <div class="text-xl sm:text-2xl font-extrabold">Benar ${correctCount} dari 15 Soal</div>
+              </div>
+            </div>
+            <button onclick="goToPage(9)" class="bg-white text-blue-900 font-extrabold px-5 py-3 rounded-2xl btn-3d flex items-center gap-2">
+              <i class="fa-solid fa-print"></i>
+              <span>Lihat & Cetak Rekap Nilai</span>
+            </button>
+          </div>
+
+          <!-- Daftar 15 Soal -->
+          <div class="space-y-6">
+            ${state.quizQuestions.map((q, qIndex) => {
+              const chosen = state.quizAnswers[q.id];
+              const isAnswered = chosen !== undefined;
+              const isRight = isAnswered && q.shuffledOptions[chosen].isCorrect;
+
+              return `
+                <div class="bg-white rounded-3xl border-4 ${isAnswered ? (isRight ? 'border-emerald-400' : 'border-rose-400') : 'border-slate-200'} p-6 shadow-md space-y-4">
+                  <!-- Header Soal + Ikon Visual Besar -->
+                  <div class="flex items-start gap-4">
+                    <div class="bg-blue-100 text-blue-800 w-14 h-14 rounded-2xl flex items-center justify-center text-2xl font-extrabold shrink-0 border-2 border-blue-300">
+                      <i class="fa-solid ${q.icon}"></i>
+                    </div>
+                    <div class="flex-1">
+                      <span class="inline-block bg-slate-100 text-slate-700 font-extrabold text-xs px-3 py-1 rounded-full mb-1">SOAL NOMOR ${qIndex + 1}</span>
+                      <h3 class="text-lg sm:text-xl font-extrabold text-slate-900">${q.question}</h3>
+                    </div>
+                  </div>
+
+                  <!-- 3 Pilihan Jawaban Bergambar (A, B, C) -->
+                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    ${q.shuffledOptions.map((opt, optIdx) => {
+                      let cardStyle = 'bg-slate-50 hover:bg-blue-50 border-slate-300 text-slate-800';
+                      if (isAnswered) {
+                        if (opt.isCorrect) {
+                          cardStyle = 'bg-emerald-600 border-emerald-700 text-white shadow-md';
+                        } else if (chosen === optIdx && !opt.isCorrect) {
+                          cardStyle = 'bg-rose-600 border-rose-700 text-white';
+                        } else {
+                          cardStyle = 'bg-slate-100 border-slate-200 text-slate-400';
+                        }
+                      }
+
+                      return `
+                        <button onclick="answerQuiz(${q.id}, ${optIdx})" class="p-4 rounded-2xl border-3 font-extrabold text-left transition flex flex-col items-center text-center gap-2 ${cardStyle}">
+                          <div class="w-full flex items-center justify-between">
+                            <span class="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center text-sm font-extrabold">${letters[optIdx]}</span>
+                            ${isAnswered && opt.isCorrect ? '<i class="fa-solid fa-circle-check text-xl"></i>' : ''}
+                            ${isAnswered && chosen === optIdx && !opt.isCorrect ? '<i class="fa-solid fa-circle-xmark text-xl"></i>' : ''}
+                          </div>
+                          <div class="text-3xl my-1">
+                            <i class="fa-solid ${opt.icon}"></i>
+                          </div>
+                          <span class="text-sm sm:text-base leading-snug">${opt.text}</span>
+                        </button>
+                      `;
+                    }).join('')}
+                  </div>
+
+                  <!-- Umpan Balik Langsung Visual -->
+                  ${isAnswered ? `
+                    <div class="p-3 rounded-2xl font-extrabold text-sm sm:text-base flex items-center gap-2 ${isRight ? 'bg-emerald-100 text-emerald-900' : 'bg-rose-100 text-rose-900'}">
+                      <i class="fa-solid ${isRight ? 'fa-face-smile-beam text-emerald-600' : 'fa-circle-info text-rose-600'} text-xl"></i>
+                      <span>${isRight ? 'HEBAT! Jawaban kamu benar!' : 'Belum tepat. Perhatikan jawaban benar yang berwarna hijau ya!'}</span>
+                    </div>
+                  ` : ''}
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </section>
+      `;
+    }
+
+    function answerQuiz(questionId, optionIdx) {
+      state.quizAnswers[questionId] = optionIdx;
+      const q = state.quizQuestions.find(item => item.id === questionId);
+      const isRight = q && q.shuffledOptions[optionIdx]?.isCorrect;
+      renderCurrentPage();
+      showToast(isRight ? 'HEBAT! KAMU BENAR!' : 'Perhatikan jawaban yang benar ya!');
+    }
+
+    function resetQuiz() {
+      initQuiz();
+      renderCurrentPage();
+      showToast('Urutan soal dan jawaban telah diacak ulang!');
+    }
+
+    // -------------------------------------------------------------------------
+    // HALAMAN 7: TANTANGAN PERILAKU BAIK
+    // -------------------------------------------------------------------------
+    function renderPage7() {
+      const doneCount = Object.values(state.challengesDone).filter(Boolean).length;
+
+      return `
+        <section class="page-transition space-y-6">
+          <div class="bg-white rounded-3xl border-4 border-emerald-300 p-6 shadow-lg flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <span class="text-sm font-extrabold text-emerald-700 uppercase">Halaman 7 • Pembiasaan Karakter</span>
+              <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">AKU BISA BERBUAT BAIK!</h2>
+              <p class="text-base text-slate-600 font-semibold mt-1">
+                Klik tombol <strong>SUDAH AKU LAKUKAN</strong> pada perilaku baik yang sudah kamu kerjakan.
+              </p>
+            </div>
+            <div class="bg-emerald-100 border-2 border-emerald-400 px-5 py-3 rounded-2xl font-extrabold text-emerald-900 text-lg">
+              Selesai: ${doneCount} / ${challengesData.length}
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            ${challengesData.map(ch => {
+              const done = !!state.challengesDone[ch.id];
+              return `
+                <div class="bg-white rounded-3xl border-4 ${done ? 'border-emerald-500 bg-emerald-50/40' : 'border-slate-200'} p-6 shadow-md flex flex-col justify-between gap-5">
+                  <div class="flex items-center gap-4">
+                    <div class="w-16 h-16 rounded-2xl ${done ? 'bg-emerald-600 text-white' : 'bg-blue-100 text-blue-700'} flex items-center justify-center text-3xl shrink-0">
+                      <i class="fa-solid ${done ? 'fa-check' : ch.icon}"></i>
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-extrabold text-slate-900">${ch.text}</h3>
+                  </div>
+
+                  <button onclick="toggleChallenge('${ch.id}')" class="w-full py-3.5 px-4 rounded-2xl font-extrabold text-base btn-3d flex items-center justify-center gap-2 ${
+                    done
+                      ? 'bg-emerald-600 text-white'
+                      : 'bg-amber-400 hover:bg-amber-500 text-slate-900'
+                  }">
+                    <i class="fa-solid ${done ? 'fa-circle-check text-xl' : 'fa-hand-pointer text-xl'}"></i>
+                    <span>${done ? '✓ SUDAH DILAKUKAN' : 'SUDAH AKU LAKUKAN'}</span>
+                  </button>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </section>
+      `;
+    }
+
+    function toggleChallenge(id) {
+      state.challengesDone[id] = !state.challengesDone[id];
+      renderCurrentPage();
+      if (state.challengesDone[id]) {
+        showToast('ALHAMDULILLAH! Terus biasakan berbuat baik ya!');
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // HALAMAN 8: REFLEKSI PEMBELAJARAN
+    // -------------------------------------------------------------------------
+    function renderPage8() {
+      const moods = [
+        { key: 'senang', emoji: '😊', label: 'Senang', color: 'border-emerald-500 bg-emerald-100 text-emerald-900' },
+        { key: 'biasa', emoji: '😐', label: 'Biasa saja', color: 'border-amber-500 bg-amber-100 text-amber-900' },
+        { key: 'belum', emoji: '😟', label: 'Belum paham', color: 'border-rose-500 bg-rose-100 text-rose-900' }
+      ];
+
+      return `
+        <section class="page-transition space-y-6">
+          <div class="bg-white rounded-3xl border-4 border-amber-300 p-6 shadow-lg">
+            <span class="text-sm font-extrabold text-amber-700 uppercase">Halaman 8 • Ekspresi Perasaan & Pemahaman</span>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">REFLEKSI PEMBELAJARAN</h2>
+            <p class="text-base text-slate-600 font-semibold mt-1">
+              Pilih gambar ekspresi yang sesuai dengan perasaanmu, atau tunjukkan dengan <strong>bahasa isyarat / gerakan tubuh</strong> kepada guru.
+            </p>
+          </div>
+
+          <div class="space-y-5">
+            ${reflectionsData.map((ref, idx) => {
+              const selected = state.reflections[ref.id];
+              return `
+                <div class="bg-white rounded-3xl border-4 border-blue-200 p-6 shadow-md space-y-4">
+                  <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900">
+                    ${idx + 1}. ${ref.question}
+                  </h3>
+                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    ${moods.map(m => {
+                      const active = selected === m.key;
+                      return `
+                        <button onclick="selectReflection('${ref.id}', '${m.key}')" class="p-4 rounded-2xl border-4 transition flex items-center justify-center gap-3 font-extrabold text-lg ${
+                          active ? m.color + ' scale-[1.02] shadow-md' : 'bg-slate-50 border-slate-200 hover:border-blue-400 text-slate-700'
+                        }">
+                          <span class="text-4xl">${m.emoji}</span>
+                          <span>${m.label}</span>
+                        </button>
+                      `;
+                    }).join('')}
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </section>
+      `;
+    }
+
+    function selectReflection(refId, moodKey) {
+      state.reflections[refId] = moodKey;
+      renderCurrentPage();
+      showToast('Terima kasih sudah menyampaikan perasaanmu!');
+    }
+
+    // -------------------------------------------------------------------------
+    // HALAMAN 9: PENUTUP & REKAP HASIL BELAJAR (CETAK & UNDUH)
+    // -------------------------------------------------------------------------
+    function renderPage9() {
+      const correctCount = state.quizQuestions.filter(q => {
+        const chosenIdx = state.quizAnswers[q.id];
+        return chosenIdx !== undefined && q.shuffledOptions[chosenIdx]?.isCorrect;
+      }).length;
+      const score = Math.round((correctCount / state.quizQuestions.length) * 100);
+      const challengeCount = Object.values(state.challengesDone).filter(Boolean).length;
+
+      return `
+        <section class="page-transition space-y-6">
+          <!-- Kartu Motivasi Utama -->
+          <div class="bg-gradient-to-br from-blue-700 via-blue-600 to-emerald-600 text-white rounded-3xl p-8 shadow-xl border-4 border-amber-300 text-center space-y-5">
+            <div class="inline-flex items-center gap-2 bg-amber-400 text-slate-900 px-4 py-1.5 rounded-full font-extrabold text-sm">
+              <i class="fa-solid fa-star"></i> SELAMAT! KAMU TELAH MENYELESAIKAN PEMBELAJARAN
+            </div>
+
+            <h2 class="text-2xl sm:text-4xl font-extrabold leading-snug max-w-3xl mx-auto">
+              "Allah Maha Mendengar, Maha Melihat, Maha Mengetahui, dan Maha Teliti Mengetahui Segala Sesuatu."
+            </h2>
+
+            <div class="bg-white text-emerald-800 inline-block px-6 py-3 rounded-2xl font-extrabold text-xl sm:text-2xl shadow-lg">
+              YUK, BIASAKAN BERBUAT BAIK SETIAP HARI!
+            </div>
+
+            <!-- Ilustrasi Siswa Saling Membantu dan Menghargai -->
+            <div class="max-w-md mx-auto pt-2">
+              ${getIllustrationSVG('heroStudent')}
+            </div>
+          </div>
+
+          <!-- Area Rekap Hasil Belajar (Siap Cetak) -->
+          <div class="bg-white rounded-3xl border-4 border-slate-300 p-6 sm:p-8 shadow-lg print-area space-y-5">
+            <div class="flex flex-wrap items-center justify-between gap-4 border-b-2 border-slate-200 pb-4">
+              <div>
+                <h3 class="text-2xl font-extrabold text-slate-900">REKAP HASIL BELAJAR PESERTA DIDIK</h3>
+                <p class="text-sm font-semibold text-slate-500">PAI SLB Fase F • Materi Asmaul Husna</p>
+              </div>
+              <div class="flex flex-wrap gap-2 no-print">
+                <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white font-extrabold px-4 py-3 rounded-2xl btn-3d flex items-center gap-2">
+                  <i class="fa-solid fa-print"></i>
+                  <span>Cetak Hasil Belajar</span>
+                </button>
+                <button onclick="downloadWordDoc()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold px-4 py-3 rounded-2xl btn-3d flex items-center gap-2">
+                  <i class="fa-solid fa-file-word"></i>
+                  <span>Unduh Materi Word (.docx)</span>
+                </button>
+                <button onclick="openTeacherModal()" class="bg-amber-400 hover:bg-amber-500 text-slate-900 font-extrabold px-4 py-3 rounded-2xl btn-3d flex items-center gap-2">
+                  <i class="fa-brands fa-google-drive"></i>
+                  <span>Google Docs & Panduan</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="bg-slate-50 p-4 rounded-2xl border-2 border-slate-200">
+                <div class="text-xs font-extrabold text-slate-500 uppercase">Nama Peserta Didik</div>
+                <div class="text-xl font-extrabold text-slate-900 mt-1">${state.studentName || 'Peserta Didik Hebat'}</div>
+              </div>
+              <div class="bg-blue-50 p-4 rounded-2xl border-2 border-blue-200">
+                <div class="text-xs font-extrabold text-blue-700 uppercase">Nilai Kuis Interaktif</div>
+                <div class="text-2xl font-extrabold text-blue-900 mt-1">${score} / 100 <span class="text-sm font-bold">(${correctCount}/15 Benar)</span></div>
+              </div>
+              <div class="bg-emerald-50 p-4 rounded-2xl border-2 border-emerald-200">
+                <div class="text-xs font-extrabold text-emerald-700 uppercase">Tantangan Perilaku Baik</div>
+                <div class="text-2xl font-extrabold text-emerald-900 mt-1">${challengeCount} / ${challengesData.length} Selesai</div>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-3 pt-2 no-print">
+              <button onclick="goToPage(3)" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-extrabold px-5 py-3 rounded-2xl btn-3d flex items-center gap-2">
+                <i class="fa-solid fa-rotate-left"></i>
+                <span>Ulangi Materi</span>
+              </button>
+              <button onclick="goToPage(1)" class="bg-blue-600 hover:bg-blue-700 text-white font-extrabold px-5 py-3 rounded-2xl btn-3d flex items-center gap-2">
+                <i class="fa-solid fa-house"></i>
+                <span>Kembali ke Beranda</span>
+              </button>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    // =========================================================================
+    // 4. MODAL BAHASA ISYARAT, CONTOH DETAIL, WORD (.DOCX) & GOOGLE DOCS
+    // =========================================================================
+    function openSignModal(topicId) {
+      state.activeSignTopic = topicId;
+      const modal = document.getElementById('signModal');
+      const titleEl = document.getElementById('signModalTitle');
+      const descEl = document.getElementById('signVisualDesc');
+      const videoBox = document.getElementById('signVideoContainer');
+      const inputEl = document.getElementById('customSignVideoInput');
+
+      const item = asmaulHusnaData.find(a => a.id === topicId);
+      if (item) {
+        titleEl.textContent = `Bahasa Isyarat: ${item.latin} (${item.arti})`;
+        descEl.textContent = item.signGuide;
+      } else {
+        titleEl.textContent = 'Panduan Bahasa Isyarat Pembelajaran (BISINDO / SIBI)';
+        descEl.textContent = 'Gunakan kontak mata yang hangat, ekspresi wajah jelas, dan gerakan tangan BISINDO/SIBI yang terverifikasi. Guru dapat menyisipkan rekaman video bahasa isyarat asli pada kolom di bawah ini.';
+      }
+
+      const savedUrl = state.customSignVideos[topicId] || '';
+      inputEl.value = savedUrl;
+
+      if (savedUrl) {
+        if (savedUrl.includes('youtube.com/embed') || savedUrl.includes('player.vimeo.com')) {
+          videoBox.innerHTML = `<iframe src="${savedUrl}" class="w-full h-full rounded-xl" frameborder="0" allowfullscreen></iframe>`;
+        } else {
+          videoBox.innerHTML = `<video src="${savedUrl}" controls autoplay loop muted class="w-full h-full rounded-xl object-contain"></video>`;
+        }
+      } else {
+        videoBox.innerHTML = `
+          <div class="space-y-3 max-w-md">
+            <div class="w-16 h-16 rounded-full bg-amber-400/20 text-amber-400 flex items-center justify-center text-3xl mx-auto">
+              <i class="fa-solid fa-hands-asl-interpreting"></i>
+            </div>
+            <h4 class="text-lg font-extrabold text-amber-300">Slot Video Bahasa Isyarat (BISINDO / SIBI)</h4>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Belum ada video yang ditautkan untuk bagian ini. Guru dapat memasukkan tautan video bahasa isyarat terverifikasi (MP4 lokal atau YouTube Embed) pada kolom pengaturan di bawah.
+            </p>
+          </div>
+        `;
+      }
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function saveCustomSignVideo() {
+      const url = document.getElementById('customSignVideoInput').value.trim();
+      state.customSignVideos[state.activeSignTopic] = url;
+      localStorage.setItem('pai_slb_sign_videos', JSON.stringify(state.customSignVideos));
+      openSignModal(state.activeSignTopic);
+      showToast('Tautan video bahasa isyarat berhasil disimpan!');
+    }
+
+    function openExampleModal(id) {
+      const item = asmaulHusnaData.find(a => a.id === id);
+      if (!item) return;
+      document.getElementById('exampleModalTitle').textContent = `Contoh Nyata: ${item.latin} (${item.arti})`;
+      document.getElementById('exampleModalBody').innerHTML = `
+        <div class="rounded-2xl overflow-hidden border-2 border-slate-200">
+          ${getIllustrationSVG(item.svg)}
+        </div>
+        <div class="bg-blue-50 border-2 border-blue-200 rounded-2xl p-4 space-y-2">
+          <span class="inline-block bg-blue-600 text-white text-xs font-extrabold px-3 py-1 rounded-full">${item.contohDetail.situasi}</span>
+          <p class="text-lg font-bold text-slate-900 leading-relaxed">${item.contohDetail.cerita}</p>
+        </div>
+        <div class="bg-emerald-50 border-2 border-emerald-200 rounded-2xl p-4">
+          <div class="font-extrabold text-emerald-900 text-sm mb-1"><i class="fa-solid fa-star text-amber-500"></i> Pesan Baik untuk Kita:</div>
+          <p class="text-base font-semibold text-emerald-900">${item.contohDetail.hikmah}</p>
+        </div>
+      `;
+      const modal = document.getElementById('exampleModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // =========================================================================
+    // 5. MENU GURU: WORD (.DOCX), GOOGLE DOCS, PETUNJUK & KUNCI JAWABAN
+    // =========================================================================
+    function openTeacherModal() {
+      const modal = document.getElementById('teacherModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      switchTeacherTab('docs');
+    }
+
+    function switchTeacherTab(tabName) {
+      document.querySelectorAll('.teacher-tab').forEach(btn => {
+        btn.className = 'teacher-tab bg-white text-slate-700 px-4 py-2 rounded-xl font-bold text-sm border border-slate-300';
+      });
+      const activeBtn = document.getElementById('tab' + tabName.charAt(0).toUpperCase() + tabName.slice(1));
+      if (activeBtn) {
+        activeBtn.className = 'teacher-tab bg-blue-600 text-white px-4 py-2 rounded-xl font-bold text-sm';
+      }
+
+      const content = document.getElementById('teacherTabContent');
+
+      if (tabName === 'docs') {
+        content.innerHTML = `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <!-- Kartu Unduh Word (.docx) -->
+            <div class="bg-blue-50 border-2 border-blue-300 rounded-2xl p-5 space-y-3">
+              <div class="flex items-center gap-3 text-blue-900">
+                <i class="fa-solid fa-file-word text-3xl text-blue-600"></i>
+                <h4 class="text-lg font-extrabold">1. Dokumen Materi Word (.docx)</h4>
+              </div>
+              <p class="text-sm text-slate-700 font-medium">
+                Unduh file lengkap berisi ringkasan 4 Asmaul Husna, contoh perilaku, 4 cerita bergambar, 15 soal latihan, dan kunci jawaban. Dapat langsung dibuka & diedit di Microsoft Word secara offline.
+              </p>
+              <button onclick="downloadWordDoc()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-extrabold py-3 px-4 rounded-xl btn-3d flex items-center justify-center gap-2">
+                <i class="fa-solid fa-download"></i>
+                <span>UNDUH FILE WORD (.DOCX)</span>
+              </button>
+            </div>
+
+            <!-- Kartu Integrasi Google Docs -->
+            <div class="bg-emerald-50 border-2 border-emerald-300 rounded-2xl p-5 space-y-3">
+              <div class="flex items-center gap-3 text-emerald-900">
+                <i class="fa-brands fa-google-drive text-3xl text-emerald-600"></i>
+                <h4 class="text-lg font-extrabold">2. Integrasi Google Docs</h4>
+              </div>
+              <p class="text-sm text-slate-700 font-medium">
+                Tempelkan tautan Google Docs milik guru di bawah ini, atau salin teks materi siap tempel ke dokumen Google Docs baru.
+              </p>
+              <div class="flex gap-2">
+                <input type="url" id="gdocsUrlInput" value="${state.googleDocsUrl}" placeholder="https://docs.google.com/document/d/..." class="flex-1 px-3 py-2 rounded-xl border-2 border-emerald-300 text-sm bg-white" />
+                <button onclick="saveGoogleDocsUrl()" class="bg-emerald-600 text-white font-bold px-3 py-2 rounded-xl text-sm">Simpan</button>
+              </div>
+              <div class="flex flex-wrap gap-2 pt-1">
+                <button onclick="openGoogleDocsLink()" class="flex-1 bg-slate-800 hover:bg-slate-900 text-white font-bold py-2.5 px-3 rounded-xl text-sm flex items-center justify-center gap-2">
+                  <i class="fa-solid fa-up-right-from-square"></i>
+                  <span>Buka Google Docs</span>
+                </button>
+                <button onclick="copyMaterialForGDocs()" class="flex-1 bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold py-2.5 px-3 rounded-xl text-sm flex items-center justify-center gap-2">
+                  <i class="fa-solid fa-copy"></i>
+                  <span>Salin Teks Materi</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Petunjuk Membuat & Menghubungkan Google Docs -->
+          <div class="bg-slate-50 border-2 border-slate-200 rounded-2xl p-5 space-y-2 text-sm text-slate-700">
+            <h5 class="font-extrabold text-slate-900 text-base">Petunjuk Membuat & Menghubungkan Google Docs Guru:</h5>
+            <ol class="list-decimal ml-5 space-y-1 font-medium">
+              <li>Klik tombol <strong>Salin Teks Materi</strong> di atas untuk menyalin seluruh materi, cerita, dan soal latihan.</li>
+              <li>Buka <strong>docs.new</strong> pada tab browser baru (login dengan akun Google Guru), lalu tekan <strong>Ctrl + V (Tempel)</strong>.</li>
+              <li>Klik tombol <strong>Bagikan (Share)</strong> di kanan atas Google Docs → ubah akses menjadi <em>"Siapa saja yang memiliki link dapat melihat"</em> → salin tautannya.</li>
+              <li>Tempelkan tautan tersebut pada kolom URL Google Docs di atas dan klik <strong>Simpan</strong>.</li>
+            </ol>
+          </div>
+        `;
+      } else if (tabName === 'guide') {
+        content.innerHTML = `
+          <div class="space-y-4 text-sm sm:text-base text-slate-700">
+            <div class="bg-blue-50 border-2 border-blue-200 rounded-2xl p-5 space-y-2">
+              <h4 class="font-extrabold text-blue-900 text-lg">A. Cara Menyimpan & Menjalankan Media (Offline/Online)</h4>
+              <ol class="list-decimal ml-5 space-y-1 font-medium">
+                <li>Simpan file ini dengan nama <strong>media_pai_slb_fase_f.html</strong> di HP Android, iPhone, laptop, atau komputer sekolah.</li>
+                <li>Klik dua kali file tersebut untuk membukanya langsung menggunakan <strong>Google Chrome</strong>, Edge, atau Safari tanpa perlu instalasi aplikasi tambahan.</li>
+                <li>Setelah file tersimpan di perangkat, seluruh fitur interaktif, gambar ilustrasi SVG, kuis, dan ekspor dokumen tetap berjalan normal meskipun tanpa koneksi internet.</li>
+              </ol>
+            </div>
+
+            <div class="bg-amber-50 border-2 border-amber-200 rounded-2xl p-5 space-y-2">
+              <h4 class="font-extrabold text-amber-900 text-lg">B. Petunjuk Penggunaan Media bagi Guru SLB Tunarungu</h4>
+              <ul class="list-disc ml-5 space-y-1 font-medium">
+                <li><strong>Komunikasi Visual Utama:</strong> Dampingi peserta didik dengan memperhatikan ekspresi wajah, kontak mata, dan gestur tubuh saat menjelaskan setiap halaman.</li>
+                <li><strong>Tanpa Ketergantungan Audio:</strong> Seluruh umpan balik kuis dan permainan menggunakan warna kontras, ikon visual, dan teks pendek yang jelas.</li>
+                <li><strong>Akidah Islam yang Lurus:</strong> Ilustrasi dalam media ini hanya menggambarkan perilaku baik manusia (berdoa, jujur, teliti) dan tidak menggambarkan Zat Allah dalam bentuk apa pun.</li>
+              </ul>
+            </div>
+
+            <div class="bg-emerald-50 border-2 border-emerald-200 rounded-2xl p-5 space-y-2">
+              <h4 class="font-extrabold text-emerald-900 text-lg">C. Petunjuk Menambahkan / Mengganti Video Bahasa Isyarat (BISINDO/SIBI)</h4>
+              <ol class="list-decimal ml-5 space-y-1 font-medium">
+                <li>Rekam video guru/juru bahasa isyarat memperagakan kosakata <em>As-Sami', Al-Bashir, Al-'Alim,</em> dan <em>Al-Khabir</em> sesuai standar BISINDO atau SIBI sekolah.</li>
+                <li>Simpan video dalam format <strong>.mp4</strong> di folder yang sama dengan file HTML (misal: <code>isyarat_assami.mp4</code>) atau unggah ke YouTube (Unlisted) dan ambil tautan <em>embed</em>-nya.</li>
+                <li>Klik tombol <strong>Video Bahasa Isyarat</strong> pada kartu materi, masukkan nama file/URL video pada kolom pengaturan guru, lalu klik <strong>Simpan Video</strong>.</li>
+              </ol>
+            </div>
+          </div>
+        `;
+      } else if (tabName === 'keys') {
+        content.innerHTML = `
+          <div class="space-y-4">
+            <div class="bg-emerald-50 border-2 border-emerald-200 rounded-2xl p-4">
+              <h4 class="font-extrabold text-emerald-900 text-lg">Kunci Jawaban 15 Soal Kuis Interaktif</h4>
+              <p class="text-sm text-emerald-800 font-medium">Catatan: Pada tampilan siswa, urutan nomor soal dan pilihan A/B/C diacak secara otomatis.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              ${quizMasterData.map(q => {
+                const ans = q.options.find(o => o.isCorrect);
+                return `
+                  <div class="bg-white border-2 border-slate-200 rounded-xl p-3.5 text-sm">
+                    <div class="font-extrabold text-slate-900">${q.id}. ${q.question}</div>
+                    <div class="mt-1 inline-block bg-emerald-100 text-emerald-900 font-extrabold px-2.5 py-0.5 rounded-lg">
+                      Jawaban Benar: ${ans.text}
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function saveGoogleDocsUrl() {
+      const url = document.getElementById('gdocsUrlInput').value.trim();
+      state.googleDocsUrl = url;
+      localStorage.setItem('pai_slb_gdocs_url', url);
+      showToast('Tautan Google Docs berhasil disimpan!');
+    }
+
+    function openGoogleDocsLink() {
+      if (state.googleDocsUrl && state.googleDocsUrl.startsWith('http')) {
+        window.open(state.googleDocsUrl, '_blank');
+      } else {
+        showToast('Belum ada tautan Google Docs guru. Silakan tempel tautan terlebih dahulu atau klik "Salin Teks Materi".');
+      }
+    }
+
+    function getPlainMaterialText() {
+      let txt = "MODUL PEMBELAJARAN PENDIDIKAN AGAMA ISLAM (PAI) SLB FASE F\n";
+      txt += "MATERI: MENGENALI DAN MEMBIASAKAN PERILAKU BAIK SEBAGAI WUJUD PENGAMALAN MAKNA SEDERHANA ASMAUL HUSNA\n";
+      txt += "====================================================================\n\n";
+      txt += "A. RINGKASAN MATERI EMPAT ASMAUL HUSNA\n";
+      asmaulHusnaData.forEach((a, i) => {
+        txt += `${i + 1}. ${a.latin} (${a.arab}) - ${a.arti}\n`;
+        txt += `   Penjelasan: ${a.penjelasan}\n`;
+        txt += `   Contoh Perilaku Baik:\n`;
+        a.perilaku.forEach(p => { txt += `   - ${p}\n`; });
+        txt += "\n";
+      });
+      txt += "B. CERITA KEHIDUPAN SEHARI-HARI (AKU ANAK JUJUR DAN BAIK)\n";
+      storiesData.forEach(s => {
+        txt += `- ${s.title} (${s.asma}): "${s.text}"\n`;
+      });
+      txt += "\nC. LATIHAN SOAL & KUNCI JAWABAN\n";
+      quizMasterData.forEach(q => {
+        const correct = q.options.find(o => o.isCorrect);
+        txt += `${q.id}. ${q.question}\n`;
+        q.options.forEach((o, idx) => {
+          txt += `   ${['A', 'B', 'C'][idx]}. ${o.text}\n`;
+        });
+        txt += `   [Kunci Jawaban: ${correct.text}]\n\n`;
+      });
+      return txt;
+    }
+
+    function copyMaterialForGDocs() {
+      const text = getPlainMaterialText();
+      const tempArea = document.createElement('textarea');
+      tempArea.value = text;
+      document.body.appendChild(tempArea);
+      tempArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempArea);
+      showToast('Materi lengkap berhasil disalin! Silakan tempel (Ctrl+V) di Google Docs.');
+    }
+
+    // Pembuatan & Unduh Dokumen Word (.docx) 100% Offline Tanpa Bergantung Internet
+    function downloadWordDoc() {
+      const htmlContent = `
+        <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+        <head><meta charset='utf-8'><title>Materi PAI SLB Fase F - Asmaul Husna</title>
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.5; color: #111; }
+          h1 { color: #1e3a8a; border-bottom: 2px solid #1e3a8a; padding-bottom: 6px; }
+          h2 { color: #065f46; margin-top: 20px; }
+          table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+          th, td { border: 1px solid #888; padding: 8px; text-align: left; }
+          th { background-color: #e0f2fe; }
+          .arab { font-size: 18pt; font-weight: bold; }
+        </style>
+        </head>
+        <body>
+          <h1>MATERI PEMBELAJARAN PAI SLB FASE F (TUNARUNGU)</h1>
+          <p><strong>Topik:</strong> Mengenali dan Membiasakan Perilaku Baik sebagai Wujud Pengamalan Makna Sederhana Asmaul Husna</p>
+          <p><strong>Nama Peserta Didik:</strong> ${state.studentName || '........................................'}</p>
+
+          <h2>1. Mengenal Empat Asmaul Husna</h2>
+          <table>
+            <tr>
+              <th>No</th>
+              <th>Asmaul Husna</th>
+              <th>Tulisan Arab</th>
+              <th>Arti Sederhana</th>
+              <th>Contoh Perilaku Baik</th>
+            </tr>
+            ${asmaulHusnaData.map((a, i) => `
+              <tr>
+                <td>${i + 1}</td>
+                <td><strong>${a.latin}</strong></td>
+                <td class="arab">${a.arab}</td>
+                <td>${a.arti}<br><em>"${a.penjelasan}"</em></td>
+                <td><ul>${a.perilaku.map(p => `<li>${p}</li>`).join('')}</ul></td>
+              </tr>
+            `).join('')}
+          </table>
+
+          <h2>2. Cerita Kehidupan Sehari-hari: "Aku Anak Jujur dan Baik"</h2>
+          ${storiesData.map(s => `
+            <p><strong>${s.title} (${s.asma}):</strong><br>${s.text}<br><em>Pertanyaan: ${s.question}</em></p>
+          `).join('')}
+
+          <h2>3. Latihan Soal Pilihan Ganda (15 Soal)</h2>
+          ${quizMasterData.map(q => `
+            <p><strong>${q.id}. ${q.question}</strong><br>
+            A. ${q.options[0].text} &nbsp;&nbsp;&nbsp; B. ${q.options[1].text} &nbsp;&nbsp;&nbsp; C. ${q.options[2].text}</p>
+          `).join('')}
+
+          <h2>4. Kunci Jawaban Latihan Soal</h2>
+          <table>
+            <tr><th>No</th><th>Kunci Jawaban</th><th>No</th><th>Kunci Jawaban</th><th>No</th><th>Kunci Jawaban</th></tr>
+            ${[0, 1, 2, 3, 4].map(row => `
+              <tr>
+                ${[0, 5, 10].map(offset => {
+                  const q = quizMasterData[row + offset];
+                  const ans = q.options.find(o => o.isCorrect);
+                  return `<td><strong>${q.id}</strong></td><td>${ans.text}</td>`;
+                }).join('')}
+              </tr>
+            `).join('')}
+          </table>
+        </body>
+        </html>
+      `;
+
+      const blob = new Blob(['\ufeff', htmlContent], { type: 'application/msword' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'Materi_PAI_SLB_Fase_F_Asmaul_Husna.docx';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      showToast('File dokumen Word (.docx) berhasil diunduh!');
+    }
+
+    // Notifikasi Visual Toast
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById('visualToast');
+      const text = document.getElementById('visualToastText');
+      text.textContent = msg;
+      toast.classList.remove('hidden');
+      toast.classList.add('flex');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.add('hidden');
+        toast.classList.remove('flex');
+      }, 3000);
+    }
+
+    // =========================================================================
+    // 6. INISIALISASI SAAT HALAMAN DIMUAT
+    // =========================================================================
+    window.onload = function () {
+      initQuiz();
+      goToPage(1);
+    };
+  </script>
+</body>
+</html>
